@@ -74,10 +74,6 @@ jobs:
           name: mosa-ng-core
           path: mosa-ng-core
 
-      - name: List files in the repository
-        run: |
-          ls -l ${{ github.workspace }}
-
       - name: Publish @mosa-ng/core package to npm Registry
         run: npm publish --access public
         working-directory: ${{ github.workspace }}/mosa-ng-core
