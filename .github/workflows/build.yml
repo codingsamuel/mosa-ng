@@ -57,9 +57,9 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
     - name: Publish @mosa-ng/core package to npm Registry
-      run: cd projects/core && npm publish
+      run: npm publish
       working-directory: ./projects/core
 
     - name: Publish @mosa-ng/material package to npm Registry
-      run: cd projects/material && npm publish
+      run: npm publish
       working-directory: ./projects/material
