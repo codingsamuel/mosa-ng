@@ -18,10 +18,10 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@4
+        uses: actions/checkout@3
 
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
 
@@ -35,7 +35,7 @@ jobs:
         run: npm run build core
 
       - name: Create Artifact for @mosa-ng/core
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         with:
           name: mosa-ng-core
           path: dist/@mosa-ng/core
@@ -44,7 +44,7 @@ jobs:
         run: npm run build material
 
       - name: Create Artifact for @mosa-ng/material
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         with:
           name: mosa-ng-material
           path: dist/@mosa-ng/material
@@ -56,10 +56,10 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Use Node.js 20.x
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: 20.x
 
@@ -69,7 +69,7 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Get Artifact for core
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v3
         with:
           name: mosa-ng-core
 
