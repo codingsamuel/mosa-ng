@@ -75,7 +75,7 @@ jobs:
 
       - name: List files in the repository
         run: |
-          ls ${{ github.workspace }}
+          ls -l ${{ github.workspace }}
 
       - name: Publish @mosa-ng/core package to npm Registry
         run: npm publish --access public
