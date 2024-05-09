@@ -7,26 +7,24 @@ import { Observable } from 'rxjs';
 import { ConfirmDialogData, ConfirmDialogResult } from '../../models/confirm-dialog.model';
 import { TableItem } from '../../models/table-item.model';
 import { ConfirmDialog } from '../confirm-dialog/confirm.dialog';
-import { BaseComponent } from './base.component';
 
 @Component({
     selector: 'mosa-cell-editor-base',
     template: '',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CellEditorBaseComponent<Model> extends BaseComponent implements OnInit, CanDeactivate<CellEditorBaseComponent<Model>> {
+export class CellEditorBaseComponent<Model> implements OnInit, CanDeactivate<CellEditorBaseComponent<Model>> {
 
     public dataSource: MatTableDataSource<TableItem<Model>>;
     public displayedColumns: (keyof Model | string)[] = [];
 
     constructor(
-        @Optional() protected readonly myMatDialog: MatDialog,
+        @Optional()
+        protected readonly myMatDialog: MatDialog,
     ) {
-        super();
     }
 
-    public override ngOnInit(): void {
-        super.ngOnInit();
+    public ngOnInit(): void {
         this.dataSource = new MatTableDataSource<TableItem<Model>>();
     }
 
