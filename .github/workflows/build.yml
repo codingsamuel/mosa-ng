@@ -58,8 +58,8 @@ jobs:
 
     - name: Publish @mosa-ng/core package to npm Registry
       run: npm publish --access public
-      working-directory: ./projects/core
+      working-directory: ./dist/@mosa-ng/core
 
     - name: Publish @mosa-ng/material package to npm Registry
       run: npm publish --access public
-      working-directory: ./projects/material
+      working-directory: ./dist/@mosa-ng/material
