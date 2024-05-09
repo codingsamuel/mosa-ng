@@ -1,9 +1,8 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ApiService, isNullOrEmpty } from '@mosa-ng/core';
 import { firstValueFrom, timer } from 'rxjs';
 import { IUpdateConfig, IVersion, UpdateDialogResult } from '../../models/update-config.model';
-import { BaseComponent } from '../base/base.component';
 import { MatUpdateDialog } from './mat-update-dialog/mat-update.dialog';
 
 @Component({
@@ -11,28 +10,7 @@ import { MatUpdateDialog } from './mat-update-dialog/mat-update.dialog';
     template: '',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-/***
- * ## How to use this dialog:
- *
- * ### Add following line to your package.json and run npm install
- * **"gulp": "~4.0.2"**
- *
- * ### Add these lines to your gulpfile.js
- * ```js
- * const gulp = require('gulp');
- * const fs = require('fs');
- * const pkg = require('./package.json');
- * gulp.task('create-version', async () => {
- *   const data = {
- *        version: pkg.version,
- *        timestamp: Date.now(),
- *    };
- *    console.log(data);
- *    fs.writeFileSync('src/assets/version.json', JSON.stringify(data));
- * })
- * ```
- */
-export class UpdateDialog extends BaseComponent implements OnInit {
+export class UpdateDialog {
 
     // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('config')
@@ -74,18 +52,13 @@ export class UpdateDialog extends BaseComponent implements OnInit {
     private firstLoad: boolean = true;
 
     private blocked: boolean;
-    private interval: number;
+    private interval: NodeJS.Timeout;
     private config: IUpdateConfig;
 
     constructor(
         private readonly myApiService: ApiService,
         private readonly myMatDialog: MatDialog,
     ) {
-        super();
-    }
-
-    public override ngOnInit(): void {
-        super.ngOnInit();
     }
 
     private start(): void {
