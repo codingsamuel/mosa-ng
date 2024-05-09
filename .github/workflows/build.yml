@@ -75,8 +75,13 @@ jobs:
 
       - name: Publish @mosa-ng/core package to npm Registry
         run: npm publish --access public
-        working-directory: ${{ github.workspace }}/dist/@mosa-ng/core
+        working-directory: mosa-ng-core
+
+      - name: Get Artifact for material
+        uses: actions/download-artifact@v4
+        with:
+          name: mosa-ng-material
 
       - name: Publish @mosa-ng/material package to npm Registry
         run: npm publish --access public
-        working-directory: ${{ github.workspace }}/dist/@mosa-ng/core
+        working-directory: mosa-ng-material
