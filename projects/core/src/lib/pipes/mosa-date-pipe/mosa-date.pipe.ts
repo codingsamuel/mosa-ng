@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 
 @Pipe({
     name: 'mosaDate',
-    standalone: false
+    standalone: false,
 })
 export class MosaDatePipe implements PipeTransform {
 

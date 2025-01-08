@@ -6,7 +6,7 @@ import { MosaDurationFormat } from '../../models/mosa-duration.model';
 
 @Pipe({
     name: 'mosaDuration',
-    standalone: false
+    standalone: false,
 })
 export class MosaDurationPipe implements PipeTransform {
 
@@ -57,9 +57,9 @@ export class MosaDurationPipe implements PipeTransform {
 
     private getTranslation(num: number, format: MosaDurationFormat): string {
         if (num === 1) {
-            return `${ num.toFixed(0) } ${ this.myTranslateService.instant(`mosa.commons.dateTime[${ format }].label`) }`;
+            return `${num.toFixed(0)} ${this.myTranslateService.instant(`mosa.commons.dateTime[${format}].label`)}`;
         }
-        return `${ num.toFixed(0) } ${ this.myTranslateService.instant(`mosa.commons.dateTime[${ format }].plural.label`) }`;
+        return `${num.toFixed(0)} ${this.myTranslateService.instant(`mosa.commons.dateTime[${format}].plural.label`)}`;
     }
 
 

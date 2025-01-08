@@ -3,9 +3,9 @@ import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleCha
 @Component({
     selector: 'mosa-alert-widget',
     templateUrl: './alert.widget.html',
-    styleUrls: ['./alert.widget.scss'],
+    styleUrls: [ './alert.widget.scss' ],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+    standalone: false,
 })
 export class AlertWidget implements OnInit, OnChanges {
 

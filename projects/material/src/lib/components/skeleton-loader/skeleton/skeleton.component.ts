@@ -4,9 +4,9 @@ import { Skeleton } from '../../../models/skeleton.model';
 @Component({
     selector: 'mosa-skeleton',
     templateUrl: './skeleton.component.html',
-    styleUrls: ['./skeleton.component.scss'],
+    styleUrls: [ './skeleton.component.scss' ],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+    standalone: false,
 })
 export class SkeletonComponent implements OnInit {
 
@@ -49,7 +49,7 @@ export class SkeletonComponent implements OnInit {
 
     private get actualWidth(): string {
         if (this.skeleton.randomizeOffset > 0 && typeof this.skeleton.width === 'number') {
-            return `${ this.skeleton.width - Math.floor(Math.random() * this.skeleton.randomizeOffset) }px`;
+            return `${this.skeleton.width - Math.floor(Math.random() * this.skeleton.randomizeOffset)}px`;
         }
 
         return SkeletonComponent.value(this.skeleton.width);
@@ -57,7 +57,7 @@ export class SkeletonComponent implements OnInit {
 
     private static value(val: number | string): string {
         if (typeof val === 'number') {
-            return `${ val }px`;
+            return `${val}px`;
         }
         return val;
     }
