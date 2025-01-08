@@ -6,9 +6,9 @@ import { BaseComponent } from '../base/base.component';
 @Component({
     selector: 'mosa-confirm-dialog',
     templateUrl: './confirm.dialog.html',
-    styleUrls: ['./confirm.dialog.scss'],
+    styleUrls: [ './confirm.dialog.scss' ],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+    standalone: false,
 })
 export class ConfirmDialog extends BaseComponent implements OnInit {
 

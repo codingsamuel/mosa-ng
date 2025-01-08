@@ -9,7 +9,7 @@ import { MatUpdateDialog } from './mat-update-dialog/mat-update.dialog';
     selector: 'mosa-update-dialog',
     template: '',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+    standalone: false,
 })
 export class UpdateDialog {
 

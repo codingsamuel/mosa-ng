@@ -6,8 +6,8 @@ import { BaseComponent } from '../../base/base.component';
 @Component({
     selector: 'mosa-mat-update-dialog',
     templateUrl: './mat-update.dialog.html',
-    styleUrls: ['./mat-update.dialog.scss'],
-    standalone: false
+    styleUrls: [ './mat-update.dialog.scss' ],
+    standalone: false,
 })
 export class MatUpdateDialog extends BaseComponent implements OnInit {
 
