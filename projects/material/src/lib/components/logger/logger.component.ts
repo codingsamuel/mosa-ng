@@ -9,7 +9,7 @@ import { BaseComponent } from '../base/base.component';
 @Component({
     selector: 'mosa-logger',
     templateUrl: './logger.component.html',
-    styleUrls: [ './logger.component.scss' ],
+    styleUrls: ['./logger.component.scss'],
     animations: [
         trigger('slide', [
             state('enter', style({ transform: 'translateX(0)' })),
@@ -23,6 +23,7 @@ import { BaseComponent } from '../base/base.component';
         ]),
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class LoggerComponent extends BaseComponent implements OnInit {
 

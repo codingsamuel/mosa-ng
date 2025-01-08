@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { APP_INITIALIZER, ModuleWithProviders, NgModule } from '@angular/core';
+import { inject, ModuleWithProviders, NgModule, provideAppInitializer } from '@angular/core';
 import { AssetsI18nLoaderService } from './services/translation/assets-i18n-loader.service';
 
 /*
@@ -108,8 +108,14 @@ export class MosaCoreModule {
         return {
             ngModule: MosaCoreModule,
             providers: [
-                { provide: APP_INITIALIZER, useFactory: initI18n, deps: [ AssetsI18nLoaderService ], multi: true },
-                { provide: APP_INITIALIZER, useFactory: initI18nCore, deps: [ AssetsI18nLoaderService ], multi: true },
+                provideAppInitializer(() => {
+        const initializerFn = (initI18n)(inject(AssetsI18nLoaderService));
+        return initializerFn();
+      }),
+                provideAppInitializer(() => {
+        const initializerFn = (initI18nCore)(inject(AssetsI18nLoaderService));
+        return initializerFn();
+      }),
             ],
         };
     }

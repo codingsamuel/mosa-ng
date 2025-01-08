@@ -6,6 +6,7 @@ import { MosaDurationFormat } from '../../models/mosa-duration.model';
 
 @Pipe({
     name: 'mosaDuration',
+    standalone: false
 })
 export class MosaDurationPipe implements PipeTransform {
 

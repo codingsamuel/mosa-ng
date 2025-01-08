@@ -3,6 +3,7 @@ import { Dictionary } from '../../utils/dictionary.util';
 
 @Pipe({
     name: 'dictionaryItem',
+    standalone: false
 })
 export class DictionaryItemPipe implements PipeTransform {
 

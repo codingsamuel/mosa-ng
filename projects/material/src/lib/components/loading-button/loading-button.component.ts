@@ -4,8 +4,9 @@ import { ThemePalette } from '@angular/material/core';
 @Component({
     selector: 'mosa-loading-button',
     templateUrl: './loading-button.component.html',
-    styleUrls: [ './loading-button.component.scss' ],
+    styleUrls: ['./loading-button.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class LoadingButtonComponent {
 

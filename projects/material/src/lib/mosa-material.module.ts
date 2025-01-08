@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { APP_INITIALIZER, ModuleWithProviders, NgModule } from '@angular/core';
+import { inject, ModuleWithProviders, NgModule, provideAppInitializer } from '@angular/core';
 import { AssetsI18nLoaderService } from '@mosa-ng/core';
 
 export function initI18n(i18n: AssetsI18nLoaderService): () => Promise<void> {
@@ -18,7 +18,10 @@ export class MosaMaterialModule {
         return {
             ngModule: MosaMaterialModule,
             providers: [
-                { provide: APP_INITIALIZER, useFactory: initI18n, deps: [ AssetsI18nLoaderService ], multi: true },
+                provideAppInitializer(() => {
+        const initializerFn = (initI18n)(inject(AssetsI18nLoaderService));
+        return initializerFn();
+      }),
             ],
         };
     }

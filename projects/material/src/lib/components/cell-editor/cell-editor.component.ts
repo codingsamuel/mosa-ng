@@ -1,14 +1,4 @@
-import {
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    ContentChild,
-    ElementRef,
-    EventEmitter,
-    Input,
-    OnInit,
-    Output,
-} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatSelect } from '@angular/material/select';
 import { TableItem } from '../../models/table-item.model';
 import { BaseComponent } from '../base/base.component';
@@ -16,8 +6,9 @@ import { BaseComponent } from '../base/base.component';
 @Component({
     selector: 'mosa-cell-editor',
     templateUrl: './cell-editor.component.html',
-    styleUrls: [ './cell-editor.component.scss' ],
+    styleUrls: ['./cell-editor.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class CellEditorComponent<T = any> extends BaseComponent implements OnInit {
