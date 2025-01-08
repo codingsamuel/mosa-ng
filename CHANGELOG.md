@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [19.0.1](https://github.com/codingsamuel/mosa-ng/compare/v19.0.0...v19.0.1) (2025-01-08)
+
+
+### Bug Fixes
+
+* update eslint rules ([7d8547c](https://github.com/codingsamuel/mosa-ng/commit/7d8547cbcd03f367287b25da8395d30c4e5a5276))
+
 ## 19.0.0 (2025-01-08)
 
 
