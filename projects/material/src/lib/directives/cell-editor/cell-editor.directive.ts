@@ -4,6 +4,7 @@ import { CellEditorService } from '../../services/cell-editor.service';
 
 @Directive({
     selector: 'td[mosaCellEditor]',
+    standalone: false
 })
 export class CellEditorDirective implements OnInit {
 

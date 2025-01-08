@@ -5,8 +5,9 @@ import { BaseSkeletonLoader } from '../base.skeleton-loader';
 @Component({
     selector: 'mosa-table-skeleton-loader',
     templateUrl: './table.skeleton-loader.html',
-    styleUrls: [ './table.skeleton-loader.scss' ],
+    styleUrls: ['./table.skeleton-loader.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 // eslint-disable-next-line @angular-eslint/component-class-suffix
 export class TableSkeletonLoader extends BaseSkeletonLoader implements OnInit {

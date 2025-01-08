@@ -4,8 +4,9 @@ import { Skeleton } from '../../../models/skeleton.model';
 @Component({
     selector: 'mosa-skeleton',
     templateUrl: './skeleton.component.html',
-    styleUrls: [ './skeleton.component.scss' ],
+    styleUrls: ['./skeleton.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class SkeletonComponent implements OnInit {
 
