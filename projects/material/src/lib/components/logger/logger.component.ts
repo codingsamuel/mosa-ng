@@ -5,6 +5,10 @@ import { Observable } from 'rxjs';
 import { ILoggerState } from '../../models/states/logger-state.model';
 import { LoggerFacade } from '../../services/facades/logger.facade';
 import { BaseComponent } from '../base/base.component';
+import { MatIcon } from '@angular/material/icon';
+import { MatButton } from '@angular/material/button';
+import { AsyncPipe, UpperCasePipe } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'mosa-logger',
@@ -23,7 +27,13 @@ import { BaseComponent } from '../base/base.component';
         ]),
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false,
+    imports: [
+        MatIcon,
+        MatButton,
+        AsyncPipe,
+        UpperCasePipe,
+        TranslateModule,
+    ],
 })
 export class LoggerComponent extends BaseComponent implements OnInit {
 

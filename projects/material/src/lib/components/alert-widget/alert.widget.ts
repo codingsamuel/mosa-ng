@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
     selector: 'mosa-alert-widget',
     templateUrl: './alert.widget.html',
     styleUrls: [ './alert.widget.scss' ],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false,
+    imports: [ MatIcon ],
 })
 export class AlertWidget implements OnInit, OnChanges {
 

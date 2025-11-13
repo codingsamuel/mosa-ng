@@ -3,9 +3,9 @@ import { NgModule } from '@angular/core';
 import { MosaDatePipe } from './mosa-date.pipe';
 
 @NgModule({
-    declarations: [ MosaDatePipe ],
     imports: [
         CommonModule,
+        MosaDatePipe,
     ],
     exports: [ MosaDatePipe ],
     providers: [ DatePipe ],

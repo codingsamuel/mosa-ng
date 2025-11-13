@@ -6,7 +6,6 @@ import { Skeleton } from '../../../models/skeleton.model';
     templateUrl: './skeleton.component.html',
     styleUrls: [ './skeleton.component.scss' ],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false,
 })
 export class SkeletonComponent implements OnInit {
 

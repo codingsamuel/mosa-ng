@@ -8,7 +8,6 @@ import { BaseComponent } from '../base/base.component';
     templateUrl: './cell-editor.component.html',
     styleUrls: [ './cell-editor.component.scss' ],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false,
 })
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class CellEditorComponent<T = any> extends BaseComponent implements OnInit {

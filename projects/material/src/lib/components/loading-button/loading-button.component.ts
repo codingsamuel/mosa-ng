@@ -1,12 +1,24 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
+import { MatButton, MatIconButton } from '@angular/material/button';
+import { NgTemplateOutlet } from '@angular/common';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { MatIcon } from '@angular/material/icon';
+import { MatProgressBar } from '@angular/material/progress-bar';
 
 @Component({
     selector: 'mosa-loading-button',
     templateUrl: './loading-button.component.html',
     styleUrls: [ './loading-button.component.scss' ],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false,
+    imports: [
+        MatButton,
+        NgTemplateOutlet,
+        MatIconButton,
+        MatProgressSpinner,
+        MatIcon,
+        MatProgressBar,
+    ],
 })
 export class LoadingButtonComponent {
 

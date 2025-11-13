@@ -1,9 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-@Pipe({
-    name: 'findInArray',
-    standalone: false,
-})
+@Pipe({ name: 'findInArray' })
 export class FindInArrayPipe implements PipeTransform {
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

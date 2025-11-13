@@ -1,10 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { Dictionary } from '../../utils/dictionary.util';
 
-@Pipe({
-    name: 'dictionaryItem',
-    standalone: false,
-})
+@Pipe({ name: 'dictionaryItem' })
 export class DictionaryItemPipe implements PipeTransform {
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -4,10 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { MosaDurationFormat } from '../../models/mosa-duration.model';
 
-@Pipe({
-    name: 'mosaDuration',
-    standalone: false,
-})
+@Pipe({ name: 'mosaDuration' })
 export class MosaDurationPipe implements PipeTransform {
 
     private readonly store$: BehaviorSubject<number>;

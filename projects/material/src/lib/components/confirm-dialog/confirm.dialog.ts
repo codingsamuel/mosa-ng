@@ -1,14 +1,24 @@
 import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef, MatDialogTitle } from '@angular/material/dialog';
 import { ConfirmDialogAction, ConfirmDialogData, ConfirmDialogResult } from '../../models/confirm-dialog.model';
 import { BaseComponent } from '../base/base.component';
+import { MatButton } from '@angular/material/button';
+import { UpperCasePipe } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'mosa-confirm-dialog',
     templateUrl: './confirm.dialog.html',
     styleUrls: [ './confirm.dialog.scss' ],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false,
+    imports: [
+        MatDialogTitle,
+        MatDialogContent,
+        MatDialogActions,
+        MatButton,
+        UpperCasePipe,
+        TranslateModule,
+    ],
 })
 export class ConfirmDialog extends BaseComponent implements OnInit {
 

@@ -4,10 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-@Pipe({
-    name: 'mosaDate',
-    standalone: false,
-})
+@Pipe({ name: 'mosaDate' })
 export class MosaDatePipe implements PipeTransform {
 
     private readonly store$: BehaviorSubject<number>;

@@ -75,16 +75,16 @@ export * from './constants/local-storage.constant';
 export * from './pipes/mosa-date-pipe/mosa-date-pipe.module';
 export * from './pipes/mosa-date-pipe/mosa-date.pipe';
 
-export * from './pipes/dictionary-item-pipe/dictionary-item-pipe.module';
+
 export * from './pipes/dictionary-item-pipe/dictionary-item.pipe';
 
-export * from './pipes/mosa-duration-pipe/mosa-duration-pipe.module';
+
 export * from './pipes/mosa-duration-pipe/mosa-duration.pipe';
 
-export * from './pipes/find-in-array/find-in-array-pipe.module';
+
 export * from './pipes/find-in-array/find-in-array.pipe';
 
-export * from './pipes/join/join-pipe.module';
+
 export * from './pipes/join/join.pipe';
 
 

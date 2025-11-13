@@ -2,10 +2,7 @@ import { ContentChild, Directive, ElementRef, HostListener, OnInit } from '@angu
 import { CellEditorComponent } from '../../components/cell-editor/cell-editor.component';
 import { CellEditorService } from '../../services/cell-editor.service';
 
-@Directive({
-    selector: 'td[mosaCellEditor]',
-    standalone: false,
-})
+@Directive({ selector: 'td[mosaCellEditor]' })
 export class CellEditorDirective implements OnInit {
 
     @ContentChild(CellEditorComponent)
