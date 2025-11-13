@@ -2,45 +2,45 @@
 {
     "compileOnSave": false,
     "compilerOptions": {
-        "paths": {
-            "@mosa-ng/core": [
-                "./projects/core/src",
-                "./dist/@mosa-ng/core"
-            ],
-            "@mosa-ng/core/*": [
-                "./projects/core/*",
-                "./dist/@mosa-ng/core/*"
-            ],
-            "@mosa-ng/material": [
-                "./projects/material/src",
-                "./dist/@mosa-ng/material"
-            ],
-            "@mosa-ng/material/*": [
-                "./projects/material/*",
-                "./dist/@mosa-ng/material/*"
-            ]
-        },
-        "outDir": "./dist/out-tsc",
-        "strict": true,
-        "strictNullChecks": false,
-        "noImplicitOverride": true,
-        "noPropertyAccessFromIndexSignature": true,
-        "noImplicitReturns": true,
-        "noFallthroughCasesInSwitch": true,
-        "skipLibCheck": true,
-        "esModuleInterop": true,
-        "sourceMap": true,
-        "declaration": false,
-        "experimentalDecorators": true,
-        "moduleResolution": "node",
-        "importHelpers": true,
-        "target": "ES2022",
-        "module": "ES2022",
-        "useDefineForClassFields": false,
-        "lib": [
-            "ES2022",
-            "dom"
+      "paths": {
+        "@mosa-ng/core": [
+          "./projects/core/src",
+          "./dist/@mosa-ng/core"
+        ],
+        "@mosa-ng/core/*": [
+          "./projects/core/*",
+          "./dist/@mosa-ng/core/*"
+        ],
+        "@mosa-ng/material": [
+          "./projects/material/src",
+          "./dist/@mosa-ng/material"
+        ],
+        "@mosa-ng/material/*": [
+          "./projects/material/*",
+          "./dist/@mosa-ng/material/*"
         ]
+      },
+      "outDir": "./dist/out-tsc",
+      "strict": true,
+      "strictNullChecks": false,
+      "noImplicitOverride": true,
+      "noPropertyAccessFromIndexSignature": true,
+      "noImplicitReturns": true,
+      "noFallthroughCasesInSwitch": true,
+      "skipLibCheck": true,
+      "esModuleInterop": true,
+      "sourceMap": true,
+      "declaration": false,
+      "experimentalDecorators": true,
+      "moduleResolution": "bundler",
+      "importHelpers": true,
+      "target": "ES2022",
+      "module": "ES2022",
+      "useDefineForClassFields": false,
+      "lib": [
+        "ES2022",
+        "dom"
+      ]
     },
     "angularCompilerOptions": {
         "enableI18nLegacyMessageIdFormat": false,

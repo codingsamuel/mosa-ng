@@ -1,6 +1,10 @@
-<div *ngIf="mode === 'input'" class="input-wrapper">
-    <ng-content select=".cell-input"></ng-content>
-</div>
-<div *ngIf="mode === 'output'" class="output-wrapper">
-    <ng-content select=".cell-output"></ng-content>
-</div>
+@if (mode === 'input') {
+    <div class="input-wrapper">
+        <ng-content select=".cell-input"></ng-content>
+    </div>
+}
+@if (mode === 'output') {
+    <div class="output-wrapper">
+        <ng-content select=".cell-output"></ng-content>
+    </div>
+}

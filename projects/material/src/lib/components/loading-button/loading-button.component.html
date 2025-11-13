@@ -1,42 +1,55 @@
-<ng-container [ngSwitch]="buttonType">
-    <button (click)="onClick($event)" *ngSwitchDefault [class]="mode" [color]="color"
-            [disabled]="loading || disabled" mat-button>
-        <ng-container [ngTemplateOutlet]="buttonContent"></ng-container>
-    </button>
-    <button (click)="onClick($event)" *ngSwitchCase="'raised'" [class]="mode" [color]="color"
-            [disabled]="loading || disabled" mat-raised-button>
-        <ng-container [ngTemplateOutlet]="buttonContent"></ng-container>
-    </button>
-    <button (click)="onClick($event)" *ngSwitchCase="'stroked'" [class]="mode" [color]="color"
-            [disabled]="loading || disabled" mat-stroked-button>
-        <ng-container [ngTemplateOutlet]="buttonContent"></ng-container>
-    </button>
-    <button (click)="onClick($event)" *ngSwitchCase="'flat'" [class]="mode" [color]="color"
-            [disabled]="loading || disabled" mat-flat-button>
-        <ng-container [ngTemplateOutlet]="buttonContent"></ng-container>
-    </button>
-    <button (click)="onClick($event)" *ngSwitchCase="'icon'" [class]="mode" [color]="color"
-            [disabled]="loading || disabled" mat-icon-button>
-        <mat-spinner *ngIf="loading" class="icon-spinner" [color]="color" [diameter]="40" [strokeWidth]="2"></mat-spinner>
-        <mat-icon *ngIf="icon">{{ icon }}</mat-icon>
-        <ng-content select=".icon"></ng-content>
-    </button>
-</ng-container>
+@switch (buttonType) {
+    @default {
+        <button (click)="onClick($event)" [class]="mode" [color]="color"
+                [disabled]="loading || disabled" mat-button>
+            <ng-container [ngTemplateOutlet]="buttonContent"></ng-container>
+        </button>
+    } @case ('raised') {
+        <button (click)="onClick($event)" [class]="mode" [color]="color"
+                [disabled]="loading || disabled" mat-raised-button>
+            <ng-container [ngTemplateOutlet]="buttonContent"></ng-container>
+        </button>
+    } @case ('stroked') {
+        <button (click)="onClick($event)" [class]="mode" [color]="color"
+                [disabled]="loading || disabled" mat-stroked-button>
+            <ng-container [ngTemplateOutlet]="buttonContent"></ng-container>
+        </button>
+    } @case ('flat') {
+        <button (click)="onClick($event)" [class]="mode" [color]="color"
+                [disabled]="loading || disabled" mat-flat-button>
+            <ng-container [ngTemplateOutlet]="buttonContent"></ng-container>
+        </button>
+    } @case ('icon') {
+        <button (click)="onClick($event)" [class]="mode" [color]="color"
+                [disabled]="loading || disabled" mat-icon-button>
+            @if (loading) {
+                <mat-spinner class="icon-spinner" [color]="color" [diameter]="40" [strokeWidth]="2"></mat-spinner>
+            } @if (icon) {
+            <mat-icon>{{ icon }}</mat-icon>
+        }
+            <ng-content select=".icon"></ng-content>
+        </button>
+    }
+}
 
 <ng-template #buttonContent>
-    <mat-icon *ngIf="icon">{{ icon }}</mat-icon>
-    <ng-container [ngSwitch]="mode">
-        <ng-container *ngSwitchCase="'spinner'">
-            <div class="spinner-inner">
-                <mat-spinner *ngIf="loading" [color]="color" [diameter]="20"></mat-spinner>
-                <span [class.loading]="loading" class="label">
-                    <ng-content select=".spinner-label"></ng-content>
-                </span>
-            </div>
-        </ng-container>
-        <ng-container *ngSwitchCase="'progress-bar'">
-            <ng-content select=".progress-bar-label"></ng-content>
-            <mat-progress-bar *ngIf="loading" [color]="color" mode="indeterminate"></mat-progress-bar>
-        </ng-container>
-    </ng-container>
+    @if (icon) {
+        <mat-icon>{{ icon }}</mat-icon>
+    } @switch (mode) {
+    @case ('spinner') {
+        <div class="spinner-inner">
+            @if (loading) {
+                <mat-spinner [color]="color" [diameter]="20"></mat-spinner>
+            }
+            <span [class.loading]="loading" class="label">
+          <ng-content select=".spinner-label"></ng-content>
+        </span>
+        </div>
+    } @case ('progress-bar') {
+        <ng-content select=".progress-bar-label"></ng-content>
+        @if (loading) {
+            <mat-progress-bar [color]="color" mode="indeterminate"></mat-progress-bar>
+        }
+    }
+}
 </ng-template>
