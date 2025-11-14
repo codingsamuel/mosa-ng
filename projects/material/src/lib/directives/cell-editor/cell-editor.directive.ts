@@ -59,7 +59,7 @@ export class CellEditorDirective implements OnInit {
 
         let columnDefClass: string = '';
         currentCell.classList.forEach((className: string): void => {
-            const found: boolean = className.indexOf('mat-column-') > -1;
+            const found: boolean = className.includes('mat-column-');
             if (found) {
                 columnDefClass = className;
             }
@@ -135,7 +135,7 @@ export class CellEditorDirective implements OnInit {
     }
 
     private static invokeElementMethod(element: HTMLElement, methodName: string, args?: unknown[]): void {
-        // eslint-disable-next-line prefer-spread
+        // eslint-disable-next-line @typescript-eslint/no-restricted-types,@typescript-eslint/no-unsafe-function-type
         (element[ methodName as keyof HTMLElement ] as Function).apply(element, args);
     }
 
@@ -143,7 +143,7 @@ export class CellEditorDirective implements OnInit {
         e.preventDefault();
         // If datepicker is opened, remove cdk-overlay from dom
         const element: Element = e.composedPath()[ 0 ] as Element;
-        if (element.className.indexOf('td-input-date') > -1) {
+        if (element.className.includes('td-input-date')) {
             const cdkOverlayContainer: Element = document.getElementsByClassName('cdk-overlay-container')[ 0 ];
             const cdkBackdrop: HTMLElement = cdkOverlayContainer.getElementsByClassName('cdk-overlay-backdrop')[ 0 ] as HTMLElement;
             if (cdkBackdrop != null) {

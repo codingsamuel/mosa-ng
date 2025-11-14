@@ -1,1 +1,1 @@
-﻿export * from './lib/mosa-core.module';
+﻿export * from './lib/provider';

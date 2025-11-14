@@ -76,7 +76,7 @@ export class MosaDatePipe implements PipeTransform {
     }
 
     private template(key: string, val: number): string {
-        return this.templates[ key ] && this.templates[ key ].replace(/%d/i, String(Math.abs(Math.round(val))));
+        return this.templates[ key ]?.replace(/%d/i, String(Math.abs(Math.round(val))));
     }
 
     private updateTemplates(): void {

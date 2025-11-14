@@ -40,7 +40,7 @@ export class CoreLoggerService {
 
         if (err instanceof HttpErrorResponse) {
             if (typeof err.error !== 'string') {
-                return `mosa.commons.errors.status[${ err.status }].message`;
+                return `mosa.commons.errors.status[${err.status}].message`;
             }
 
             return err.error;
@@ -54,7 +54,7 @@ export class CoreLoggerService {
             msg = err.error.msg;
         } else if (err.error?.message) {
             msg = err.error.message;
-        } else if (err.error?.errors && err.error?.errors[ 0 ]?.message) {
+        } else if (err.error?.errors?.[ 0 ]?.message) {
             msg = err.error.errors[ 0 ].message;
         } else if (err.message) {
             msg = err.message;

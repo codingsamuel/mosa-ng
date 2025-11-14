@@ -7,9 +7,7 @@ export type ApiObserveTypes = 'body' | 'response' | 'events';
 export interface IHttpOptions {
     observe?: ApiObserveTypes;
     responseType?: ApiResponseTypes;
-    params?: HttpParams | {
-        [ param: string ]: string | string[];
-    };
+    params?: HttpParams | Record<string, string | string[]>;
     reportProgress?: boolean;
 }
 

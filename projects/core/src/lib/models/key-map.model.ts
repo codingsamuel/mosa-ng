@@ -1,3 +1,1 @@
-export interface IKeyMap<T> {
-    [ key: string | number ]: T;
-}
+export type IKeyMap<T> = Record<string | number, T>;

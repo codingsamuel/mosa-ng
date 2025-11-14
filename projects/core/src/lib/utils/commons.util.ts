@@ -89,7 +89,7 @@ export function tryJsonParse<T>(data: string, fallback?: () => T): T | null {
         if (!isNullOrEmpty(data)) {
             return JSON.parse(data);
         }
-    } catch (err: unknown) {
+    } catch {
         // Ignore - go on with fallback check
     }
 

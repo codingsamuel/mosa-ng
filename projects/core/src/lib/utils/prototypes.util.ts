@@ -1,5 +1,4 @@
-﻿/* eslint-disable @typescript-eslint/unbound-method */
-/**
+﻿/**
  * Cast any type
  * @param data to be casted
  * @returns casted data
@@ -29,7 +28,7 @@ export class StringExtensions implements IStringExtensions {
 
         try {
             str = JSON.parse(str);
-        } catch (e) {
+        } catch {
             return null;
         }
 
@@ -131,15 +130,15 @@ export interface INumberExtensions {
 }
 
 declare global {
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface,id-blacklist
+    // eslint-disable-next-line @typescript-eslint/naming-convention,id-blacklist,@typescript-eslint/no-empty-object-type
     interface String extends IStringExtensions {
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface,@typescript-eslint/no-unused-vars
+    // eslint-disable-next-line @typescript-eslint/naming-convention,@typescript-eslint/no-empty-object-type,@typescript-eslint/no-unused-vars
     interface Array<T> extends IArrayExtensions {
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface,id-blacklist
+    // eslint-disable-next-line @typescript-eslint/naming-convention,id-blacklist,@typescript-eslint/no-empty-object-type
     interface Number extends INumberExtensions {
     }
 }

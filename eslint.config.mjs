@@ -54,12 +54,12 @@ export default defineConfig([ {
 
     rules: {
         '@angular-eslint/component-class-suffix': [ 'error', {
-            suffixes: [ 'Component', 'View', 'Page', 'Dialog' ],
+            suffixes: [ 'Component', 'View', 'Page', 'Dialog', 'Widget' ],
         } ],
 
         '@angular-eslint/component-selector': [ 'error', {
             type: 'element',
-            prefix: [ 'app' ],
+            prefix: [ 'mosa' ],
             style: 'kebab-case',
         } ],
 
@@ -67,7 +67,7 @@ export default defineConfig([ {
 
         '@angular-eslint/directive-selector': [ 'error', {
             type: 'attribute',
-            prefix: [ 'app' ],
+            prefix: [ 'mosa' ],
             style: 'camelCase',
         } ],
 

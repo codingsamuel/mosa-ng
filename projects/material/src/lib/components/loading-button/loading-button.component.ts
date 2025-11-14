@@ -41,7 +41,6 @@ export class LoadingButtonComponent {
     public icon: string;
 
     @Output()
-    // eslint-disable-next-line @angular-eslint/no-output-native
     public click: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
 
     constructor() {
