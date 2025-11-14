@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [20.0.1](https://github.com/codingsamuel/mosa-ng/compare/v20.0.0...v20.0.1) (2025-11-14)
+
+
+### Features
+
+* **angular-20:** update package lock ([f3192d4](https://github.com/codingsamuel/mosa-ng/commit/f3192d4d23018d33504817df59e478cc6a35ccea))
+
 ## [20.0.0](https://github.com/codingsamuel/mosa-ng/compare/v19.0.1...v20.0.0) (2025-11-14)
 
 
