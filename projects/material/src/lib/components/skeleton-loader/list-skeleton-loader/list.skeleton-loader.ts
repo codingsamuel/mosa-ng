@@ -1,12 +1,18 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit, TemplateRef } from '@angular/core';
 import { BaseSkeletonLoader } from '../base.skeleton-loader';
+import { MatList, MatListItem } from '@angular/material/list';
+import { NgTemplateOutlet } from '@angular/common';
 
 @Component({
     selector: 'mosa-list-skeleton-loader',
     templateUrl: './list.skeleton-loader.html',
     styleUrls: [ './list.skeleton-loader.scss' ],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false,
+    imports: [
+        MatList,
+        MatListItem,
+        NgTemplateOutlet,
+    ],
 })
 // eslint-disable-next-line @angular-eslint/component-class-suffix
 export class ListSkeletonLoader extends BaseSkeletonLoader implements OnInit {

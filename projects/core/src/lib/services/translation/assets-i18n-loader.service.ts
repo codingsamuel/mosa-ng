@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { firstValueFrom, Observable, of } from 'rxjs';
 import { catchError, share, tap } from 'rxjs/operators';
-import { IKeyMap } from '../../models/key-map.model';
 import { getRandomString } from '../../utils/commons.util';
 import { TranslateCollectorService } from './translate-collector.service';
 

@@ -1,13 +1,27 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { Skeleton } from '../../../models/skeleton.model';
 import { BaseSkeletonLoader } from '../base.skeleton-loader';
+import { MatCell, MatCellDef, MatColumnDef, MatHeaderCell, MatHeaderCellDef, MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef, MatTable } from '@angular/material/table';
+import { SkeletonComponent } from '../skeleton/skeleton.component';
 
 @Component({
     selector: 'mosa-table-skeleton-loader',
     templateUrl: './table.skeleton-loader.html',
     styleUrls: [ './table.skeleton-loader.scss' ],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false,
+    imports: [
+        MatTable,
+        MatColumnDef,
+        MatHeaderCellDef,
+        MatHeaderCell,
+        SkeletonComponent,
+        MatCellDef,
+        MatCell,
+        MatHeaderRowDef,
+        MatHeaderRow,
+        MatRowDef,
+        MatRow,
+    ],
 })
 // eslint-disable-next-line @angular-eslint/component-class-suffix
 export class TableSkeletonLoader extends BaseSkeletonLoader implements OnInit {

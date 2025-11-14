@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [20.0.0](https://github.com/codingsamuel/mosa-ng/compare/v19.0.1...v20.0.0) (2025-11-14)
+
+
+### Features
+
+* **angular-20:** add angular-eslint ([4a1fed0](https://github.com/codingsamuel/mosa-ng/commit/4a1fed0238ad3a995d5c5b65a7f86ac1dcaed45c))
+* **angular-20:** add angular-eslint ([d299683](https://github.com/codingsamuel/mosa-ng/commit/d29968345313dc5833a3685a893b95b160fd0715))
+* **angular-20:** add filter pipe and form type ([66cebbc](https://github.com/codingsamuel/mosa-ng/commit/66cebbc3b30cf1d20a7808073b7c86f3bcd07438))
+* **angular-20:** migrate to standalone ([74daef3](https://github.com/codingsamuel/mosa-ng/commit/74daef322cdf7dafae0034cb07a7d1d5273c58c9))
+* **angular-20:** migrate to standalone ([bbd5af0](https://github.com/codingsamuel/mosa-ng/commit/bbd5af0da441dbbe24570583a9bcd7f266df10a3))
+* **angular-20:** refactor and fix lint errors ([450a8eb](https://github.com/codingsamuel/mosa-ng/commit/450a8ebea8680a54e64041e2451349742fc39ba3))
+* **angular-20:** update @angular/cdk@20 @angular/material@20 ([51fb7c1](https://github.com/codingsamuel/mosa-ng/commit/51fb7c105f5452c8e9f3ff7c80ea0ef3cf4b61f9))
+* **angular-20:** update @angular/cli@20 @angular/core@20 ([f9ebcfb](https://github.com/codingsamuel/mosa-ng/commit/f9ebcfbdd656f0755cd91ecf179382f0083dcaf2))
+* **angular-20:** update peer dependencies ([e0631ed](https://github.com/codingsamuel/mosa-ng/commit/e0631ed339cd343eacf5906cbf5c27af0e410337))
+
 ## [19.0.1](https://github.com/codingsamuel/mosa-ng/compare/v19.0.0...v19.0.1) (2025-01-08)
 
 

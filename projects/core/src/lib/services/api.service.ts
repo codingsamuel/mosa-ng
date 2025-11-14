@@ -184,7 +184,7 @@ export class ApiService {
     public delete<T>(url: string, headers?: HttpHeaders, options?: IApiOptions): Observable<T> {
         options = ApiService.serializeOptions(options);
         headers = this.getHeaders(headers, options);
-        // eslint-disable-next-line @typescript-eslint/ban-types
+        // eslint-disable-next-line @typescript-eslint/no-empty-object-type
         return this.myHttpClient.delete<T>(url, { ...options.httpOptions as {}, headers })
             .pipe(
                 catchError((err: HttpErrorResponse): Observable<never> => this.handleError(err, options)),
@@ -223,7 +223,7 @@ export class ApiService {
             this.myCoreLoggerService.logError({ msg: err });
         }
 
-        return throwError(err);
+        return throwError(() => err);
     }
 
     private handleResponse<T>(response: HttpEvent<T>): T {

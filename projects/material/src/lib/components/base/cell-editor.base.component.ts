@@ -12,7 +12,6 @@ import { ConfirmDialog } from '../confirm-dialog/confirm.dialog';
     selector: 'mosa-cell-editor-base',
     template: '',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false,
 })
 export class CellEditorBaseComponent<Model> implements OnInit, CanDeactivate<CellEditorBaseComponent<Model>> {
 
