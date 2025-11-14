@@ -68,6 +68,15 @@ export function getTransformMatrix(element: HTMLElement): ITransformMatrix {
     };
 }
 
+export function some<T>(item: T, searchValue: T[keyof T] | T[keyof T][], searchKey?: keyof T): boolean {
+    let searchValues: T[keyof T][] = searchValue as T[keyof T][];
+    if (!Array.isArray(searchValue)) {
+        searchValues = [ searchValue ];
+    }
+
+    return searchValues.includes(searchKey ? item[ searchKey ] : item as T[keyof T]);
+}
+
 /**
  * Generates a random string with numbers and letters
  * @param length

@@ -47,6 +47,8 @@ export * from './models/logger/logger-base-config.model';
 export * from './models/logger/logger-default-config.model';
 export * from './models/logger/log-type.model';
 
+export * from './models/types/form.type';
+
 /**
  * Utils
  */
@@ -73,6 +75,7 @@ export * from './constants/local-storage.constant';
  * Pipes
  */
 export * from './pipes/dictionary-item.pipe';
+export * from './pipes/filter.pipe';
 export * from './pipes/find.pipe';
 export * from './pipes/join.pipe';
 export * from './pipes/mosa-date.pipe';
