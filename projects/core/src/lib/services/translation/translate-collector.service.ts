@@ -26,7 +26,7 @@ export class TranslateCollectorService {
 
         this.translationMap[ lang ].push({ priority, translation });
         this.translationMap[ lang ].sort((a: ITranslationMap, b: ITranslationMap) => a.priority - b.priority);
-        const merged: IKeyMap<string> = JSON.parse(localStorage.getItem(MOSA_MERGED_TRANSLATION(lang))) || {};
+        const merged: IKeyMap<string> = JSON.parse(localStorage.getItem(MOSA_MERGED_TRANSLATION(lang))|| '{}');
 
         for (const translationsData of this.translationMap[ lang ]) {
             const translations: IKeyMap<string> = translationsData.translation;

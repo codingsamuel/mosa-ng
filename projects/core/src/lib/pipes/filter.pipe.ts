@@ -4,7 +4,8 @@ import { some } from '../utils/commons.util';
 @Pipe({ name: 'filter' })
 export class FilterPipe implements PipeTransform {
 
-    public transform<T>(array: T[], searchValue: T[keyof T] | T[keyof T][], searchKey?: keyof T): T[] {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    public transform<T>(array: T[] | undefined, searchValue: any, searchKey?: keyof T): T[] {
         // Return if array is empty or null
         if (!array?.length) {
             return [];

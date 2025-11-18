@@ -45,7 +45,7 @@ export class Dictionary<Key, Value> {
      * @param key
      * @returns single dictionary item
      */
-    public get(key: Key): IDictionaryItem<Key, Value> {
+    public get(key: Key): IDictionaryItem<Key, Value> | undefined {
         return this.dictionaryItems$.value.find((item: IDictionaryItem<Key, Value>): boolean => item.key === key);
     }
 

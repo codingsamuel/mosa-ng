@@ -4,13 +4,14 @@ import { some } from '../utils/commons.util';
 @Pipe({ name: 'find' })
 export class FindPipe implements PipeTransform {
 
-    public transform<T>(array: T[], searchValue: T[keyof T] | T[keyof T][], searchKey?: keyof T): T {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    public transform<T>(array: T[] | undefined, searchValue: any, searchKey?: keyof T): T | null {
         // Return if array is empty or null
         if (!array?.length) {
             return null;
         }
 
-        const foundItem: T = array.find((v: T): boolean => some(v, searchValue, searchKey));
+        const foundItem: T | undefined = array.find((v: T): boolean => some(v, searchValue, searchKey));
         if (!foundItem) {
             return null;
         }

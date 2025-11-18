@@ -14,7 +14,7 @@ export function isNullOrUndefined(val: any): boolean {
  * Checks if a string is null or empty
  * @param str
  */
-export function isNullOrEmpty(str: string): boolean {
+export function isNullOrEmpty(str: string | null | undefined): boolean {
     return !str?.trim();
 }
 
@@ -22,7 +22,7 @@ export function isNullOrEmpty(str: string): boolean {
  * Checks if a string or number is zero or higher
  * @param num
  */
-export function isZeroOrHigher(num: number | string): boolean {
+export function isZeroOrHigher(num: number | string | null): boolean {
     return num !== null && +num >= 0;
 }
 
@@ -93,10 +93,10 @@ export function getRandomString(length: number = 10): string {
 /**
  * Trys to convert a json string. If it fails it returns [null] or a given fallback of [T]
  */
-export function tryJsonParse<T>(data: string, fallback?: () => T): T | null {
+export function tryJsonParse<T>(data: string | undefined | null, fallback?: () => T): T | null {
     try {
         if (!isNullOrEmpty(data)) {
-            return JSON.parse(data);
+            return JSON.parse(data!);
         }
     } catch {
         // Ignore - go on with fallback check

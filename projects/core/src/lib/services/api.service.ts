@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse, HttpEvent, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
+import { firstValueFrom, Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { IApiOptions } from '../models/api-options.model';
 import { ITokenSettings } from '../models/token-settings.model';
@@ -21,31 +21,6 @@ export class ApiService {
     }
 
     /**
-     * Gets an access token
-     * @deprecated use getToken()
-     */
-    public getAccessToken(): string {
-        return window.localStorage.getItem('jwtAccessToken');
-    }
-
-    /**
-     * Sets an access token
-     * @param token
-     * @deprecated use setToken()
-     */
-    public setAccessToken(token: string): void {
-        window.localStorage.setItem('jwtAccessToken', token);
-    }
-
-    /**
-     * Removes an access token from local storage
-     * @deprecated use deleteAccessToken()
-     */
-    public removeAccessToken(): void {
-        window.localStorage.removeItem('jwtAccessToken');
-    }
-
-    /**
      * Sets the token
      * @param tokenSettings
      */
@@ -56,13 +31,13 @@ export class ApiService {
     /**
      * Gets token
      */
-    public getToken(): ITokenSettings {
-        const tokenSettings: string = window.localStorage.getItem(LOCAL_STORAGE_TOKEN_KEY);
+    public getToken(): ITokenSettings | null {
+        const tokenSettings: string | null = window.localStorage.getItem(LOCAL_STORAGE_TOKEN_KEY);
         if (isNullOrEmpty(tokenSettings)) {
             return null;
         }
 
-        return JSON.parse(tokenSettings);
+        return JSON.parse(tokenSettings!);
     }
 
     /**
@@ -97,7 +72,7 @@ export class ApiService {
      * @param options
      */
     public async getWithHeadersAsync<T>(url: string, headers?: HttpHeaders, options?: IApiOptions): Promise<HttpEvent<T>> {
-        return this.getWithHeaders<T>(url, headers, options).toPromise();
+        return firstValueFrom(this.getWithHeaders<T>(url, headers, options));
     }
 
     /**
@@ -228,35 +203,30 @@ export class ApiService {
 
     private handleResponse<T>(response: HttpEvent<T>): T {
         if (response instanceof HttpResponse) {
-            return response.body;
+            return response.body as T;
         }
         return response as T;
     }
 
-    private getHeaders(headers: HttpHeaders, options: IApiOptions): HttpHeaders {
+    private getHeaders(headers?: HttpHeaders, options?: IApiOptions): HttpHeaders {
         if (!headers) {
             headers = new HttpHeaders();
         }
 
-        if (!options.skipContentType) {
+        if (!options?.skipContentType) {
             if (!headers.get('Content-Type')) {
                 headers = headers.set('Content-Type', 'application/json');
             }
         }
 
-        if (!options?.skipAuth) {
-            if (this.getToken()) {
-                const tokenSettings: ITokenSettings = this.getToken();
-                headers = headers.set('Authorization', `${ tokenSettings.tokenType } ${ tokenSettings.token }`);
-            } else {
-                // Deprecated. Use ITokenSettings
-                headers = headers.set('Authorization', `Bearer ${ this.getAccessToken() }`);
-            }
+        const tokenSettings: ITokenSettings | null = this.getToken();
+        if (!options?.skipAuth && tokenSettings) {
+            headers = headers.set('Authorization', `${tokenSettings.tokenType} ${tokenSettings.token}`);
         }
         return headers;
     }
 
-    private static serializeOptions(options: IApiOptions): IApiOptions {
+    private static serializeOptions(options?: IApiOptions): IApiOptions {
         if (!options) {
             options = {};
         }

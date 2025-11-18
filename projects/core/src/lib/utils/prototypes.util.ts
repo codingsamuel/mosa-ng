@@ -20,7 +20,7 @@ export class StringExtensions implements IStringExtensions {
         return newStr;
     }
 
-    public fromJSON<T>(): T {
+    public fromJSON<T>(): T | null {
         let str: string = cast<string>(this);
         if (typeof this !== 'string') {
             str = JSON.stringify(str);
@@ -92,7 +92,7 @@ export interface IStringExtensions {
      * Converts a string from json
      * @returns object of expected type
      */
-    fromJSON<T>(): T;
+    fromJSON<T>(): T | null;
 
     /**
      * Converts a string to a css class

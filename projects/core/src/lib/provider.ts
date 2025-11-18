@@ -82,11 +82,11 @@ export * from './pipes/mosa-date.pipe';
 export * from './pipes/mosa-duration.pipe';
 
 function initI18n(i18n: AssetsI18nLoaderService): Promise<void> {
-    return i18n.init(null, null, 1);
+    return i18n.init(undefined, undefined, 1);
 }
 
 function initI18nCore(i18n: AssetsI18nLoaderService): Promise<void> {
-    return i18n.init(null, 'mosa');
+    return i18n.init(undefined, 'mosa');
 }
 
 export const provideMosaCore: () => EnvironmentProviders = () => makeEnvironmentProviders([

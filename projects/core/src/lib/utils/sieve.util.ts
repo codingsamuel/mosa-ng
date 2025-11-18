@@ -18,7 +18,7 @@ export class Sieve {
      * public getter to get page size
      */
     public get pageSize(): number {
-        return this.options.pageSize;
+        return this.options.pageSize || 10;
     }
 
     /**
@@ -32,7 +32,7 @@ export class Sieve {
      * public getter to get page
      */
     public get page(): number {
-        return this.options.page;
+        return this.options.page || 0;
     }
 
     /**
@@ -45,7 +45,7 @@ export class Sieve {
     /**
      * public getter to get filters
      */
-    public get filters(): ISieveFilter[] {
+    public get filters(): ISieveFilter[] | undefined {
         return this.options.filters;
     }
 
@@ -59,7 +59,7 @@ export class Sieve {
     /**
      * public getter to get sorts
      */
-    public get sorts(): ISieveSort[] {
+    public get sorts(): ISieveSort[] | undefined {
         return this.options.sorts;
     }
 
@@ -76,7 +76,7 @@ export class Sieve {
      * @param desc sort descending
      */
     public addSort(name: string, desc?: boolean): void {
-        this.options.sorts.push({
+        this.options.sorts?.push({
             name,
             desc,
         });
@@ -89,7 +89,7 @@ export class Sieve {
      * @param value filtered value
      */
     public addFilter(key: string, operator: SieveOperator, value: string): void {
-        this.options.filters.push({
+        this.options.filters?.push({
             key,
             operator,
             value,
@@ -99,7 +99,7 @@ export class Sieve {
     /**
      * Getter for base url
      */
-    public get baseUrl(): string {
+    public get baseUrl(): string | undefined {
         return this.options.baseUrl;
     }
 

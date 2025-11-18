@@ -9,10 +9,10 @@ import { isNullOrEmpty, tryJsonParse } from '../../utils/commons.util';
 })
 export class CustomTranslateLoaderService {
 
-    public getTranslation(lang: string): Observable<IKeyMap<string>> {
-        return new Observable<IKeyMap<string>>((observer: Observer<IKeyMap<string>>) => {
-            const item: string = localStorage.getItem(MOSA_MERGED_TRANSLATION(lang));
-            const responseObj: IKeyMap<string> = tryJsonParse(item, () => this.loadFallbackLanguage());
+    public getTranslation(lang: string): Observable<IKeyMap<string> | null> {
+        return new Observable<IKeyMap<string> | null>((observer: Observer<IKeyMap<string> | null>) => {
+            const item: string | null = localStorage.getItem(MOSA_MERGED_TRANSLATION(lang));
+            const responseObj: IKeyMap<string> | null = tryJsonParse(item, () => this.loadFallbackLanguage());
 
             observer.next(responseObj);
             observer.complete();
@@ -20,8 +20,8 @@ export class CustomTranslateLoaderService {
     }
 
     private loadFallbackLanguage(): IKeyMap<string> {
-        const defaultTranslation: string = localStorage.getItem(MOSA_FALLBACK_TRANSLATION);
-        return isNullOrEmpty(defaultTranslation) ? {} : JSON.parse(defaultTranslation);
+        const defaultTranslation: string | null = localStorage.getItem(MOSA_FALLBACK_TRANSLATION);
+        return isNullOrEmpty(defaultTranslation) ? {} : JSON.parse(defaultTranslation!);
     }
 
 }

@@ -7,7 +7,7 @@ import { Observable, Observer, Subject } from 'rxjs';
 })
 export class MosaSocketService {
 
-    private subject: Subject<MessageEvent>;
+    private subject: Subject<MessageEvent> | undefined;
 
     constructor() {
     }
@@ -20,7 +20,7 @@ export class MosaSocketService {
     }
 
     public send(data: MessageEvent): void {
-        this.subject.next(data);
+        this.subject?.next(data);
     }
 
     private create(url: string): Subject<MessageEvent> {

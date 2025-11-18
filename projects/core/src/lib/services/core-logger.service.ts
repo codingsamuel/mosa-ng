@@ -12,18 +12,17 @@ import { isNullOrUndefined } from '../utils/commons.util';
 })
 export class CoreLoggerService {
 
-    public defaultConfig: ILoggerDefaultConfig;
+    public defaultConfig: ILoggerDefaultConfig | undefined;
 
-    private readonly uiLogs$: BehaviorSubject<ILogEvent>;
+    private readonly uiLogs$: BehaviorSubject<ILogEvent | null> = new BehaviorSubject<ILogEvent | null>(null);
 
     /**
      * Default constructor
      */
     constructor() {
-        this.uiLogs$ = new BehaviorSubject(null);
     }
 
-    public subUiLogs(): Observable<ILogEvent> {
+    public subUiLogs(): Observable<ILogEvent | null> {
         return this.uiLogs$.asObservable();
     }
 
@@ -172,7 +171,7 @@ export class CoreLoggerService {
      * @param config
      * @private
      */
-    private serializeConfig(config: ILoggerConfig): ILoggerConfig {
+    private serializeConfig(config: ILoggerConfig | undefined): ILoggerConfig {
         // Check if user has default config
         if (!this.defaultConfig) {
             this.defaultConfig = {
@@ -191,10 +190,10 @@ export class CoreLoggerService {
         }
 
         // Serialize configuration
-        config.duration = CoreLoggerService.getValue<number>(config.duration, this.defaultConfig.duration, 4);
-        config.className = CoreLoggerService.getValue<string>(config.className, this.defaultConfig.className, null);
-        config.showDismiss = CoreLoggerService.getValue<boolean>(config.showDismiss, this.defaultConfig.showDismiss, false);
-        config.closeOnClick = CoreLoggerService.getValue<boolean>(config.closeOnClick, this.defaultConfig.closeOnClick, true);
+        config.duration = CoreLoggerService.getValue<number>(config.duration!, this.defaultConfig.duration!, 4);
+        config.className = CoreLoggerService.getValue<string>(config.className!, this.defaultConfig.className!, '');
+        config.showDismiss = CoreLoggerService.getValue<boolean>(config.showDismiss!, this.defaultConfig.showDismiss!, false);
+        config.closeOnClick = CoreLoggerService.getValue<boolean>(config.closeOnClick!, this.defaultConfig.closeOnClick!, true);
 
         return config;
     }
