@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { firstValueFrom, Observable, of } from 'rxjs';
-import { catchError, share, tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { getRandomString } from '../../utils/commons.util';
 import { TranslateCollectorService } from './translate-collector.service';
 
@@ -13,44 +13,31 @@ export class AssetsI18nLoaderService {
     protected priority: number = 0;
     protected supportedLanguages: string[] = [];
 
-    private subLanguages: Observable<{ languages: string[] }> | undefined;
-
     constructor(
         protected myHttpClient: HttpClient,
         protected myTranslateCollectorService: TranslateCollectorService,
     ) {
     }
 
-    public init(path?: string, libName?: string, priority?: number): Promise<void> {
-        return new Promise(async (resolve: () => void): Promise<void> => {
-            if (this.supportedLanguages) {
-                for (let i: number = 0; i < this.supportedLanguages.length; i++) {
-                    await firstValueFrom(this.loadTranslations(this.supportedLanguages[ i ], path, libName, priority));
-                }
-                resolve();
-                return;
-            }
-
-            if (!this.subLanguages) {
-                this.subLanguages = this.myHttpClient.get<{ languages: string[] }>(`assets/i18n/supported-languages.json?v=${getRandomString()}`)
-                    .pipe(share());
-            }
-            const res: { languages: string[] } | null = await firstValueFrom(this.subLanguages).catch(() => null);
-            if (!res) {
-                this.subLanguages = undefined;
-                console.error('Missing file -> assets/i18n/supported-languages.json <-- FIX THIS!');
-                return;
-            }
-
-            this.subLanguages = undefined;
-            this.supportedLanguages = res.languages;
-
-
+    public async init(path?: string, libName?: string, priority?: number): Promise<void> {
+        if (this.supportedLanguages.length > 0) {
             for (let i: number = 0; i < this.supportedLanguages.length; i++) {
                 await firstValueFrom(this.loadTranslations(this.supportedLanguages[ i ], path, libName, priority));
             }
-            resolve();
-        });
+            return;
+        }
+
+        const res: { languages: string[] } | null = await firstValueFrom(this.myHttpClient.get<{ languages: string[] }>(`assets/i18n/supported-languages.json?v=${getRandomString()}`)).catch(() => null);
+        if (!res) {
+            console.error('Missing file -> assets/i18n/supported-languages.json');
+            return;
+        }
+
+        this.supportedLanguages = res.languages;
+
+        for (let i: number = 0; i < this.supportedLanguages.length; i++) {
+            await firstValueFrom(this.loadTranslations(this.supportedLanguages[ i ], path, libName, priority));
+        }
     }
 
     protected loadTranslations(lang: string, path?: string, libName?: string, priority?: number): Observable<Record<string, string> | null> {
