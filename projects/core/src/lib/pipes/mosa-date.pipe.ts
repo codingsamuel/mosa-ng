@@ -7,29 +7,31 @@ import { map } from 'rxjs/operators';
 @Pipe({ name: 'mosaDate' })
 export class MosaDatePipe implements PipeTransform {
 
-    private readonly store$: BehaviorSubject<number>;
-    private templates: Record<string, string>;
+    private readonly store$: BehaviorSubject<number> = new BehaviorSubject<number>(new Date().getTime());
+
+    private templates: Record<string, string> = {};
 
     constructor(
         private readonly myTranslateService: TranslateService,
         private readonly myDatePipe: DatePipe,
     ) {
-        this.store$ = new BehaviorSubject<number>(null);
         this.updateTemplates();
-        setInterval((): void => {
-            this.store$.next(new Date().getTime());
-        }, 10);
+        setInterval((): void => this.store$.next(new Date().getTime()), 10);
         this.myTranslateService.onLangChange.subscribe((): void => {
             this.updateTemplates();
             this.store$.next(new Date().getTime());
         });
     }
 
-    public transform(date: string | Date, mode: 'full' | 'timeSince' | 'date' = 'timeSince'): Observable<string> {
-        return this.store$.pipe(map((currentDate: number): string => this.calcDate(currentDate, date, mode)));
+    public transform(date: string | Date | undefined, mode: 'full' | 'timeSince' | 'date' = 'timeSince', options?: { withPrefix?: boolean, withSuffix?: boolean }): Observable<string> {
+        return this.store$.pipe(map((currentDate: number): string => this.calcDate(currentDate, date, mode, options)));
     }
 
-    private calcDate(currentDate: number, date: string | Date, mode: 'full' | 'timeSince' | 'date'): string {
+    private calcDate(currentDate: number, date: string | Date | undefined, mode: 'full' | 'timeSince' | 'date', options?: { withPrefix?: boolean, withSuffix?: boolean }): string {
+        if (!date) {
+            return '';
+        }
+
         let parsed: number;
         if (date instanceof Date) {
             parsed = new Date(date.toString()).getTime();
@@ -41,15 +43,15 @@ export class MosaDatePipe implements PipeTransform {
             currentDate = new Date().getTime();
         }
 
-        const convertedDate = this.myDatePipe.transform(parsed, 'dd. MMM. yyyy hh:mm aaa');
+        const convertedDate: string | null = this.myDatePipe.transform(parsed, 'dd. MMM. yyyy hh:mm aaa');
         if (mode === 'full' || mode === 'timeSince') {
-            const seconds = ((currentDate - parsed) * .001) >> 0;
-            const minutes = seconds / 60;
-            const hours = minutes / 60;
-            const days = hours / 24;
-            const years = days / 365;
+            const seconds: number = ((currentDate - parsed) * .001) >> 0;
+            const minutes: number = seconds / 60;
+            const hours: number = minutes / 60;
+            const days: number = hours / 24;
+            const years: number = days / 365;
 
-            const timeSince: string = this.templates[ 'prefix' ] + (
+            const timeSince: string = (options?.withPrefix ? this.templates[ 'prefix' ] : '') + (
                 seconds < 60 && this.template('seconds', seconds) ||
                 seconds < 120 && this.template('minute', 1) ||
                 minutes < 60 && this.template('minutes', minutes) ||
@@ -61,7 +63,7 @@ export class MosaDatePipe implements PipeTransform {
                 days < 365 && this.template('months', days / 30) ||
                 years < 1.5 && this.template('year', 1) ||
                 this.template('years', years)
-            ) + this.templates[ 'prefix' ];
+            ) + (options?.withSuffix ? this.templates[ 'suffix' ] : '');
 
             if (mode === 'timeSince') {
                 return timeSince;
@@ -72,7 +74,7 @@ export class MosaDatePipe implements PipeTransform {
             }
         }
 
-        return convertedDate;
+        return convertedDate || '';
     }
 
     private template(key: string, val: number): string {

@@ -7,19 +7,14 @@ import { MosaDurationFormat } from '../models/mosa-duration.model';
 @Pipe({ name: 'mosaDuration' })
 export class MosaDurationPipe implements PipeTransform {
 
-    private readonly store$: BehaviorSubject<number>;
+    private readonly store$: BehaviorSubject<number> = new BehaviorSubject<number>(new Date().getTime());
     private readonly interval: NodeJS.Timeout;
 
     constructor(
         private readonly myTranslateService: TranslateService,
     ) {
-        this.store$ = new BehaviorSubject<number>(new Date().getTime());
-        this.interval = setInterval(() => {
-            this.store$.next(new Date().getTime());
-        }, 1000);
-        this.myTranslateService.onLangChange.subscribe((): void => {
-            this.store$.next(new Date().getTime());
-        });
+        this.interval = setInterval(() => this.store$.next(new Date().getTime()), 1000);
+        this.myTranslateService.onLangChange.subscribe((): void => this.store$.next(new Date().getTime()));
     }
 
     /**
@@ -33,17 +28,17 @@ export class MosaDurationPipe implements PipeTransform {
      * hours: 7200000 -> 2 hours
      * days: 172800000 -> 2 days
      */
-    public transform(millis: number, format: MosaDurationFormat = 'auto'): Observable<string> {
+    public transform(millis: number | undefined, format: MosaDurationFormat = 'auto'): Observable<string> {
         return this.store$.pipe(
             map((currentDate: number): string => {
                 if (!millis) {
                     clearInterval(this.interval);
-                    return null;
+                    return '';
                 }
 
                 if (millis - currentDate < 0) {
                     clearInterval(this.interval);
-                    return null;
+                    return '';
                 }
 
                 return this.calcDuration(currentDate, millis, format);
@@ -99,6 +94,6 @@ export class MosaDurationPipe implements PipeTransform {
             return this.getTranslation(days, 'days');
         }
 
-        return null;
+        return '';
     }
 }
