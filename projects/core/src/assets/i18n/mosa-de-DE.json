@@ -10,8 +10,10 @@
     "mosa.components.cellEditorBase.discardChanges.label": "Änderungen verwerfen?",
     "mosa.components.cellEditorBase.discardChanges.message": "Sie haben noch nicht gespeicherte Änderungen. Wollen Sie diese Seite wirklich schließen?",
 
-    "mosa.pipes.timeSince.prefix": "vor ",
-    "mosa.pipes.timeSince.suffix": "",
+    "mosa.pipes.timeSince.prefix.past": "vor ",
+    "mosa.pipes.timeSince.prefix.future": "in ",
+    "mosa.pipes.timeSince.suffix.past": "",
+    "mosa.pipes.timeSince.suffix.future": "",
     "mosa.pipes.timeSince.seconds": "%d Sekunden",
     "mosa.pipes.timeSince.minute": "einer Minute",
     "mosa.pipes.timeSince.minutes": "%d Minuten",
