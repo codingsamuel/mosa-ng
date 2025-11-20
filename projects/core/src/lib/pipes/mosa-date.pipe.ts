@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Pipe, PipeTransform } from '@angular/core';
+import { inject, Pipe, PipeTransform } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -11,10 +11,10 @@ export class MosaDatePipe implements PipeTransform {
 
     private templates: Record<string, string> = {};
 
-    constructor(
-        private readonly myTranslateService: TranslateService,
-        private readonly myDatePipe: DatePipe,
-    ) {
+    private readonly myTranslateService: TranslateService = inject(TranslateService);
+    private readonly myDatePipe: DatePipe = inject(DatePipe);
+
+    constructor() {
         this.updateTemplates();
         setInterval((): void => this.store$.next(new Date().getTime()), 10);
         this.myTranslateService.onLangChange.subscribe((): void => {
@@ -27,43 +27,65 @@ export class MosaDatePipe implements PipeTransform {
         return this.store$.pipe(map((currentDate: number): string => this.calcDate(currentDate, date, mode, options)));
     }
 
-    private calcDate(currentDate: number, date: string | Date | undefined, mode: 'full' | 'timeSince' | 'date', options?: { withPrefix?: boolean, withSuffix?: boolean }): string {
+    private calcDate(currentTimestamp: number, date: string | Date | undefined, mode: 'full' | 'timeSince' | 'date', options?: { withPrefix?: boolean, withSuffix?: boolean }): string {
         if (!date) {
             return '';
         }
 
-        let parsed: number;
+        let parsed: Date;
         if (date instanceof Date) {
-            parsed = new Date(date.toString()).getTime();
+            parsed = new Date(date.toString());
         } else {
-            parsed = new Date(date).getTime();
+            parsed = new Date(date);
         }
 
-        if (!currentDate) {
-            currentDate = new Date().getTime();
+        if (!currentTimestamp) {
+            currentTimestamp = new Date().getTime();
         }
+        const currentDate = new Date(currentTimestamp);
+        const parsedTimestamp: number = parsed.getTime();
 
         const convertedDate: string | null = this.myDatePipe.transform(parsed, 'dd. MMM. yyyy hh:mm aaa');
         if (mode === 'full' || mode === 'timeSince') {
-            const seconds: number = ((currentDate - parsed) * .001) >> 0;
+            const seconds: number = Math.abs(((currentTimestamp - parsedTimestamp) * .001) >> 0);
             const minutes: number = seconds / 60;
             const hours: number = minutes / 60;
             const days: number = hours / 24;
             const years: number = days / 365;
 
-            const timeSince: string = (options?.withPrefix ? this.templates[ 'prefix' ] : '') + (
-                seconds < 60 && this.template('seconds', seconds) ||
-                seconds < 120 && this.template('minute', 1) ||
-                minutes < 60 && this.template('minutes', minutes) ||
-                minutes < 120 && this.template('hour', 1) ||
-                hours < 24 && this.template('hours', hours) ||
-                hours < 42 && this.template('day', 1) ||
-                days < 30 && this.template('days', days) ||
-                days < 45 && this.template('month', 1) ||
-                days < 365 && this.template('months', days / 30) ||
-                years < 1.5 && this.template('year', 1) ||
-                this.template('years', years)
-            ) + (options?.withSuffix ? this.templates[ 'suffix' ] : '');
+            const yearDifference = (currentDate.getFullYear() - parsed.getFullYear()) * 12;
+            const monthDifference = currentDate.getMonth() - parsed.getMonth();
+
+            let timeSince: string = '';
+            if (parsedTimestamp > currentTimestamp) {
+                timeSince = (options?.withPrefix ? this.templates[ 'prefixFuture' ] : '') + (
+                    seconds < 60 && this.template('seconds', seconds) ||
+                    seconds < 120 && this.template('minute', 1) ||
+                    minutes < 60 && this.template('minutes', minutes) ||
+                    minutes < 120 && this.template('hour', 1) ||
+                    hours < 24 && this.template('hours', hours) ||
+                    hours < 42 && this.template('day', 1) ||
+                    days < 30 && this.template('days', days) ||
+                    days < 45 && this.template('month', 1) ||
+                    days < 365 && this.template('months', yearDifference + monthDifference) ||
+                    years < 1.5 && this.template('year', 1) ||
+                    this.template('years', years)
+                ) + (options?.withSuffix ? this.templates[ 'suffixFuture' ] : '');
+            } else {
+                timeSince = (options?.withPrefix ? this.templates[ 'prefixPast' ] : '') + (
+                    seconds < 60 && this.template('seconds', seconds) ||
+                    seconds < 120 && this.template('minute', 1) ||
+                    minutes < 60 && this.template('minutes', minutes) ||
+                    minutes < 120 && this.template('hour', 1) ||
+                    hours < 24 && this.template('hours', hours) ||
+                    hours < 42 && this.template('day', 1) ||
+                    days < 30 && this.template('days', days) ||
+                    days < 45 && this.template('month', 1) ||
+                    days < 365 && this.template('months', yearDifference + monthDifference) ||
+                    years < 1.5 && this.template('year', 1) ||
+                    this.template('years', years)
+                ) + (options?.withSuffix ? this.templates[ 'suffixPast' ] : '');
+            }
 
             if (mode === 'timeSince') {
                 return timeSince;
@@ -83,8 +105,10 @@ export class MosaDatePipe implements PipeTransform {
 
     private updateTemplates(): void {
         this.templates = {
-            prefix: this.myTranslateService.instant('mosa.pipes.timeSince.prefix'),
-            suffix: this.myTranslateService.instant('mosa.pipes.timeSince.suffix'),
+            prefixPast: this.myTranslateService.instant('mosa.pipes.timeSince.prefix.past'),
+            suffixPast: this.myTranslateService.instant('mosa.pipes.timeSince.suffix.past'),
+            prefixFuture: this.myTranslateService.instant('mosa.pipes.timeSince.prefix.future'),
+            suffixFuture: this.myTranslateService.instant('mosa.pipes.timeSince.suffix.future'),
             seconds: this.myTranslateService.instant('mosa.pipes.timeSince.seconds'),
             minute: this.myTranslateService.instant('mosa.pipes.timeSince.minute'),
             minutes: this.myTranslateService.instant('mosa.pipes.timeSince.minutes'),
