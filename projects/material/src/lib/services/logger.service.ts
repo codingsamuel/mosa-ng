@@ -7,7 +7,7 @@ import { LoggerComponent } from '../components/logger/logger.component';
 })
 export class LoggerService extends CoreLoggerService {
 
-    private loggerComp: LoggerComponent;
+    private loggerComp: LoggerComponent | undefined;
 
     /**
      * Default constructor
@@ -28,20 +28,16 @@ export class LoggerService extends CoreLoggerService {
 
     /**
      * Shows the log
-     * @param title
-     * @param msg
      * @param type
      * @param config
      */
     public override show(config: ILoggerConfig, type: LogType): void {
         super.show(config, type);
         if (this.loggerComp) {
-            const i = this.loggerComp.slideIn(config.title, config.msg, type, config);
+            const i: number = this.loggerComp.slideIn(config.title, config.msg, type, config);
 
             if (config.duration !== -1) {
-                setTimeout((): void => {
-                    this.loggerComp.slideOut(i);
-                }, config.duration * 1000);
+                setTimeout((): void => this.loggerComp?.slideOut(i), (config.duration || 1) * 1000);
             }
         }
     }

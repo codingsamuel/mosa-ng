@@ -9,6 +9,6 @@
 export class BaseSkeletonLoader {
 
     @Input()
-    public itemCount: number;
+    public itemCount: number | undefined;
 
 }

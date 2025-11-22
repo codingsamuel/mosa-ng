@@ -7,13 +7,15 @@
         <button (click)="confirm(result.cancelled)" color="primary" mat-stroked-button>
             {{ 'mosa.commons.buttons.cancel' | translate | uppercase }}
         </button>
-    } @if (dialogData.deny.visible) {
-    <button (click)="confirm(result.denied)" color="primary" mat-stroked-button>
-        {{ dialogData.deny.label | translate | uppercase }}
-    </button>
-} @if (dialogData.confirm.visible) {
-    <button (click)="confirm(result.confirmed)" color="primary" mat-flat-button>
-        {{ dialogData.confirm.label | translate | uppercase }}
-    </button>
-}
+    }
+    @if (dialogData.deny?.visible) {
+        <button (click)="confirm(result.denied)" color="primary" mat-stroked-button>
+            {{ dialogData.deny?.label | translate | uppercase }}
+        </button>
+    }
+    @if (dialogData.confirm?.visible) {
+        <button (click)="confirm(result.confirmed)" color="primary" mat-flat-button>
+            {{ dialogData.confirm?.label | translate | uppercase }}
+        </button>
+    }
 </div>

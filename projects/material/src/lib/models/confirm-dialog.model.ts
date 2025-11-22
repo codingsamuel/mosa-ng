@@ -6,8 +6,9 @@ export enum ConfirmDialogResult {
 }
 
 export class ConfirmDialogAction {
-    public icon: string;
-    public visible: boolean;
+
+    public icon: string | undefined;
+    public visible: boolean | undefined;
     public label: string;
 
     constructor(label: string, visible?: boolean) {
@@ -17,11 +18,12 @@ export class ConfirmDialogAction {
 }
 
 export class ConfirmDialogData {
-    public title: string;
-    public message: string;
-    public cancel: ConfirmDialogAction;
-    public confirm: ConfirmDialogAction;
-    public deny: ConfirmDialogAction;
+
+    public title: string | undefined;
+    public message: string | undefined;
+    public cancel: ConfirmDialogAction | undefined;
+    public confirm: ConfirmDialogAction | undefined;
+    public deny: ConfirmDialogAction | undefined;
 
     constructor(title?: string, message?: string, cancel?: ConfirmDialogAction, confirm?: ConfirmDialogAction, deny?: ConfirmDialogAction) {
         this.title = title;

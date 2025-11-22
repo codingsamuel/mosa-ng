@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ApiService, isNullOrEmpty } from '@mosa-ng/core';
 import { firstValueFrom, timer } from 'rxjs';
@@ -6,13 +6,12 @@ import { IUpdateConfig, IVersion, UpdateDialogResult } from '../../models/update
 import { MatUpdateDialog } from './mat-update-dialog/mat-update.dialog';
 
 @Component({
-    selector: 'mosa-update-dialog',
+    selector: 'mosa-update-dialog[config]',
     template: '',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UpdateDialog {
 
-    // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('config')
     public set updateConfig(config: IUpdateConfig) {
         if (config) {
@@ -51,14 +50,14 @@ export class UpdateDialog {
 
     private firstLoad: boolean = true;
 
-    private blocked: boolean;
-    private interval: NodeJS.Timeout;
-    private config: IUpdateConfig;
+    private blocked: boolean = false;
+    private interval: NodeJS.Timeout | undefined;
+    private config!: IUpdateConfig;
 
-    constructor(
-        private readonly myApiService: ApiService,
-        private readonly myMatDialog: MatDialog,
-    ) {
+    private readonly myApiService: ApiService = inject(ApiService);
+    private readonly myMatDialog: MatDialog = inject(MatDialog);
+
+    constructor() {
     }
 
     private start(): void {
@@ -70,11 +69,10 @@ export class UpdateDialog {
     }
 
     private openDialog(version: IVersion): void {
-        this.myMatDialog
-            .open(MatUpdateDialog, {
-                width: '600px',
-                data: this.config,
-            })
+        this.myMatDialog.open(MatUpdateDialog, {
+            width: '600px',
+            data: this.config,
+        })
             .afterClosed()
             .subscribe((result: UpdateDialogResult): void => {
                 switch (result) {
@@ -83,42 +81,42 @@ export class UpdateDialog {
                         this.blocked = true;
                         break;
                     case UpdateDialogResult.ignore:
-                        timer(this.config.ignoreTimeout).subscribe((): void => {
-                            this.openDialog(version);
-                        });
+                        timer(this.config.ignoreTimeout!).subscribe((): void => this.openDialog(version));
                         break;
                     case UpdateDialogResult.reload:
                         window.location.reload();
-                        window.localStorage.setItem(this.config.localStorageKey, JSON.stringify(version));
+                        window.localStorage.setItem(this.config.localStorageKey!, JSON.stringify(version));
                         break;
                 }
             });
     }
 
     private async checkForUpdate(): Promise<void> {
-        if (!this.blocked) {
-            const localStorageVersion: string = window.localStorage.getItem(this.config.localStorageKey);
-            let localVersion: IVersion = { version: '0.0.0', timestamp: 0 };
-            if (!isNullOrEmpty(localStorageVersion)) {
-                localVersion = JSON.parse(localStorageVersion);
-            }
-            const data: IVersion = await firstValueFrom(this.myApiService.get(this.config.versionPath));
-            if (this.firstLoad) {
-                window.localStorage.setItem(this.config.localStorageKey, JSON.stringify(data));
-                this.firstLoad = false;
-                return;
-            }
-            if (data.version !== localVersion.version) {
-                this.blocked = true;
-                this.end();
-                this.openDialog(data);
-            }
+        if (this.blocked) {
+            return;
+        }
+
+        const localStorageVersion: string | null = window.localStorage.getItem(this.config.localStorageKey!);
+        let localVersion: IVersion = { version: '0.0.0', timestamp: 0 };
+        if (!isNullOrEmpty(localStorageVersion)) {
+            localVersion = JSON.parse(localStorageVersion!);
+        }
+        const data: IVersion = await firstValueFrom(this.myApiService.get(this.config.versionPath));
+        if (this.firstLoad) {
+            window.localStorage.setItem(this.config.localStorageKey!, JSON.stringify(data));
+            this.firstLoad = false;
+            return;
+        }
+        if (data.version !== localVersion.version) {
+            this.blocked = true;
+            this.end();
+            this.openDialog(data);
         }
     }
 
     private end(): void {
         clearInterval(this.interval);
-        this.interval = null;
+        this.interval = undefined;
     }
 
 }

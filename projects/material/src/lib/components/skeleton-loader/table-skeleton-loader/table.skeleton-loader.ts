@@ -27,7 +27,7 @@ import { SkeletonComponent } from '../skeleton/skeleton.component';
 export class TableSkeletonLoader extends BaseSkeletonLoader implements OnInit {
 
     @Input()
-    public columns: Skeleton[][];
+    public columns: Skeleton[][] = [];
 
     public items: Skeleton[][] = [];
     public displayedColumns: string[] = [];
@@ -41,7 +41,7 @@ export class TableSkeletonLoader extends BaseSkeletonLoader implements OnInit {
             this.displayedColumns.push(`column-${i}`);
         }
 
-        for (let i = 0; i < this.itemCount; i++) {
+        for (let i = 0; i < (this.itemCount || 0); i++) {
             const skeletons: Skeleton[] = [];
             for (let j = 0; j < this.displayedColumns.length; j++) {
                 const skeleton = this.columns[ j ][ 1 ];

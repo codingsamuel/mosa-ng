@@ -1,10 +1,10 @@
+/* eslint-disable */
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { ChangeDetectionStrategy, Component, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { ILog, ILoggerConfig } from '@mosa-ng/core';
 import { Observable } from 'rxjs';
 import { ILoggerState } from '../../models/states/logger-state.model';
 import { LoggerFacade } from '../../services/facades/logger.facade';
-import { BaseComponent } from '../base/base.component';
 import { MatIcon } from '@angular/material/icon';
 import { MatButton } from '@angular/material/button';
 import { AsyncPipe, UpperCasePipe } from '@angular/common';
@@ -35,25 +35,19 @@ import { TranslateModule } from '@ngx-translate/core';
         TranslateModule,
     ],
 })
-export class LoggerComponent extends BaseComponent implements OnInit {
+export class LoggerComponent implements OnInit {
 
     @ViewChildren('loggerElement')
-    public elements: QueryList<HTMLElement>;
+    public elements: QueryList<HTMLElement> | undefined;
 
-    public loggerState$: Observable<ILoggerState>;
+    public loggerState$!: Observable<ILoggerState>;
 
-    /**
-     * Default constructor
-     * @param myLoggerFacade
-     */
-    constructor(
-        private readonly myLoggerFacade: LoggerFacade,
-    ) {
-        super();
+    private readonly myLoggerFacade: LoggerFacade = inject(LoggerFacade);
+
+    constructor() {
     }
 
-    public override ngOnInit(): void {
-        super.ngOnInit();
+    public ngOnInit(): void {
         this.loggerState$ = this.myLoggerFacade.subState();
     }
 
@@ -70,7 +64,7 @@ export class LoggerComponent extends BaseComponent implements OnInit {
      * @param type
      * @param config
      */
-    public slideIn(title: string, message: string, type: string, config: ILoggerConfig): number {
+    public slideIn(title: string | undefined, message: string | undefined, type: string, config: ILoggerConfig): number {
         const logs: ILog[] = [ ...this.myLoggerFacade.snapshot.logs ];
         const i = logs.length;
         let icon: string;
@@ -88,7 +82,7 @@ export class LoggerComponent extends BaseComponent implements OnInit {
             case 'success':
                 icon = 'done';
                 break;
-            case 'default':
+            default:
                 icon = 'notifications';
                 break;
         }
@@ -105,22 +99,24 @@ export class LoggerComponent extends BaseComponent implements OnInit {
     public slideOut(id: number): void {
         let logs: ILog[] = [ ...this.myLoggerFacade.snapshot.logs ];
         if (logs.length > 0) {
-            const item = logs.find((e: ILog): boolean => e.id === id);
-            if (item) {
-                item.state = 'leave';
-                this.myLoggerFacade.updateLogs(logs);
-                setTimeout((): void => {
-                    logs = [ ...this.myLoggerFacade.snapshot.logs ];
-                    const index = logs.findIndex((log: ILog): boolean => log.id === item.id);
-                    logs.splice(index, 1);
-                    this.myLoggerFacade.updateLogs(logs);
-                }, 200);
+            const item: ILog | undefined = logs.find((e: ILog): boolean => e.id === id);
+            if (!item) {
+                return;
             }
+
+            item.state = 'leave';
+            this.myLoggerFacade.updateLogs(logs);
+            setTimeout((): void => {
+                logs = [ ...this.myLoggerFacade.snapshot.logs ];
+                const index = logs.findIndex((log: ILog): boolean => log.id === item.id);
+                logs.splice(index, 1);
+                this.myLoggerFacade.updateLogs(logs);
+            }, 200);
         }
     }
 
     public callAction(log: ILog): void {
-        log.config.action.callback.call(this);
+        log.config.action?.callback?.call(this);
         this.slideOut(log.id);
     }
 

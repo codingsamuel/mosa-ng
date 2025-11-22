@@ -1,11 +1,10 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, inject, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef, MatDialogTitle } from '@angular/material/dialog';
 import { IUpdateConfig, UpdateDialogResult } from '../../../models/update-config.model';
-import { BaseComponent } from '../../base/base.component';
 import { MatButton } from '@angular/material/button';
 import { AsyncPipe, UpperCasePipe } from '@angular/common';
-import { MosaDurationPipeModule } from '@mosa-ng/core';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
+import { MosaDurationPipe } from '@mosa-ng/core';
 
 @Component({
     selector: 'mosa-mat-update-dialog',
@@ -18,21 +17,21 @@ import { TranslateModule } from '@ngx-translate/core';
         MatButton,
         AsyncPipe,
         UpperCasePipe,
-        MosaDurationPipeModule,
-        TranslateModule,
+        TranslatePipe,
+        MosaDurationPipe,
     ],
 })
-export class MatUpdateDialog extends BaseComponent implements OnInit {
+export class MatUpdateDialog implements OnInit {
+
+    private readonly myMatDialogRef: MatDialogRef<MatUpdateDialog> = inject(MatDialogRef<MatUpdateDialog>);
 
     constructor(
-        private readonly myMatDialogRef: MatDialogRef<MatUpdateDialog>,
         @Inject(MAT_DIALOG_DATA) public readonly config: IUpdateConfig,
     ) {
-        super();
     }
 
-    public override ngOnInit(): void {
-        super.ngOnInit();
+    public ngOnInit(): void {
+        //
     }
 
     public close(result: UpdateDialogResult): void {

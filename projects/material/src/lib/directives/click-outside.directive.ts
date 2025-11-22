@@ -10,7 +10,7 @@ export class ClickOutsideDirective {
     public clickOutside: EventEmitter<[ HTMLElement, HTMLElement ]> = new EventEmitter<[ HTMLElement, HTMLElement ]>();
 
     @Input()
-    public enableWhiteListing: boolean;
+    public enableWhiteListing: boolean = false;
 
     constructor(
         private readonly elementRef: ElementRef,
@@ -35,7 +35,7 @@ export class ClickOutsideDirective {
         }
     }
 
-    private static getClosest(el: HTMLElement, selector: string): HTMLElement {
+    private static getClosest(el: HTMLElement | null, selector: string): HTMLElement | null {
         while (el) {
             if (el.classList.contains(selector)) {
                 return el;

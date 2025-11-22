@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef, MatDialogTitle } from '@angular/material/dialog';
 import { ConfirmDialogAction, ConfirmDialogData, ConfirmDialogResult } from '../../models/confirm-dialog.model';
-import { BaseComponent } from '../base/base.component';
 import { MatButton } from '@angular/material/button';
 import { UpperCasePipe } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
@@ -20,7 +19,7 @@ import { TranslateModule } from '@ngx-translate/core';
         TranslateModule,
     ],
 })
-export class ConfirmDialog extends BaseComponent implements OnInit {
+export class ConfirmDialog implements OnInit {
 
     public dialogData: ConfirmDialogData;
     public result: typeof ConfirmDialogResult = ConfirmDialogResult;
@@ -30,7 +29,6 @@ export class ConfirmDialog extends BaseComponent implements OnInit {
         private readonly myConfirmDialogData: ConfirmDialogData,
         private readonly myMatDialogRef: MatDialogRef<ConfirmDialog>,
     ) {
-        super();
         const cancel: ConfirmDialogAction = new ConfirmDialogAction('mosa.commons.buttons.cancel', true);
         const deny: ConfirmDialogAction = new ConfirmDialogAction('mosa.commons.buttons.deny');
         const confirm: ConfirmDialogAction = new ConfirmDialogAction('mosa.commons.buttons.confirm', true);
@@ -60,8 +58,8 @@ export class ConfirmDialog extends BaseComponent implements OnInit {
         }
     }
 
-    public override ngOnInit(): void {
-        super.ngOnInit();
+    public ngOnInit(): void {
+        //
     }
 
     public confirm(result: ConfirmDialogResult): void {

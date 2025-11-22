@@ -1,7 +1,6 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { MatSelect } from '@angular/material/select';
 import { TableItem } from '../../models/table-item.model';
-import { BaseComponent } from '../base/base.component';
 
 @Component({
     selector: 'mosa-cell-editor',
@@ -10,19 +9,19 @@ import { BaseComponent } from '../base/base.component';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export class CellEditorComponent<T = any> extends BaseComponent implements OnInit {
+export class CellEditorComponent<T = any> implements OnInit {
 
     @Input()
-    public key: string;
+    public key: string = '';
 
     @Input()
-    public rowItem: TableItem<T>;
+    public rowItem!: TableItem<T>;
 
     @Input()
-    public value: T;
+    public value: T | undefined;
 
     @Output()
-    public valueChange: EventEmitter<T> = new EventEmitter<T>();
+    public valueChange: EventEmitter<T | undefined> = new EventEmitter<T | undefined>();
 
     @Output()
     public cellClick: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
@@ -34,24 +33,23 @@ export class CellEditorComponent<T = any> extends BaseComponent implements OnIni
     private readonly cellCancel: EventEmitter<void> = new EventEmitter<void>();
 
     @ContentChild(MatSelect)
-    private readonly select: MatSelect;
+    private readonly select: MatSelect | undefined;
 
     public mode: 'input' | 'output' = 'output';
 
-    private oldValue: T;
+    private oldValue: T | undefined;
 
-    constructor(
-        private readonly myChangeDetectorRef: ChangeDetectorRef,
-        private readonly myElementRef: ElementRef<HTMLElement>,
-    ) {
-        super();
+    private readonly myChangeDetectorRef: ChangeDetectorRef = inject(ChangeDetectorRef);
+    private readonly myElementRef: ElementRef<HTMLElement> = inject(ElementRef<HTMLElement>);
+
+    constructor() {
     }
 
     public get element(): HTMLElement {
         return this.myElementRef.nativeElement;
     }
 
-    public override ngOnInit(): void {
+    public ngOnInit(): void {
         this.oldValue = this.value;
         this.rowItem.rowOriginalData = this.rowItem;
     }
@@ -92,7 +90,7 @@ export class CellEditorComponent<T = any> extends BaseComponent implements OnIni
         this.myChangeDetectorRef.markForCheck();
         this.element.classList.add('focused');
         setTimeout((): void => {
-            const comp: HTMLElement = this.element.querySelector('.cell-input');
+            const comp: HTMLElement | null = this.element.querySelector('.cell-input');
 
             if (comp instanceof HTMLInputElement) {
                 comp.focus();

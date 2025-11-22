@@ -24,48 +24,48 @@ $fontRobotoCondensed: 'Roboto Condensed', sans-serif;
 
 // Mixins / Functions
 @mixin move($top, $left) {
-  top: $top;
-  left: $left;
+    top: $top;
+    left: $left;
 }
 
 @mixin size($width, $height) {
-  width: $width;
-  height: $height;
+    width: $width;
+    height: $height;
 }
 
 @mixin circle($size) {
-  @include size($size, $size);
-  border-radius: 50%;
+    @include size($size, $size);
+    border-radius: 50%;
 }
 
 @mixin maxLines($lines: 3, $ellipsis: true) {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: $lines;
-  overflow: hidden;
-  max-lines: $lines;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $lines;
+    overflow: hidden;
+    max-lines: $lines;
 
-  @if ($ellipsis) {
-    text-overflow: ellipsis;
-  }
+    @if ($ellipsis) {
+        text-overflow: ellipsis;
+    }
 }
 
 @mixin flex($column: false, $wrap: false, $alignCenter: false, $justifyCenter: false) {
-  display: flex;
+    display: flex;
 
-  @if ($column) {
-    flex-direction: column;
-  }
+    @if ($column) {
+        flex-direction: column;
+    }
 
-  @if ($wrap) {
-    flex-wrap: wrap;
-  }
+    @if ($wrap) {
+        flex-wrap: wrap;
+    }
 
-  @if ($alignCenter) {
-    align-items: center;
-  }
+    @if ($alignCenter) {
+        align-items: center;
+    }
 
-  @if ($justifyCenter) {
-    justify-content: center;
-  }
+    @if ($justifyCenter) {
+        justify-content: center;
+    }
 }

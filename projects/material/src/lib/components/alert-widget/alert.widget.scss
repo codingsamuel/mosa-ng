@@ -1,50 +1,50 @@
-@import "../../styles/vars";
+@use "../../styles/vars" as vars;
 
 :host {
-  display: block;
+    display: block;
 }
 
 .alert {
-  position: relative;
-  padding: 15px;
-  border-radius: 4px;
-  width: 100%;
-  display: table;
-  color: #222222;
-  border: 1px solid #222222;
-  border-left-width: 5px;
+    position: relative;
+    padding: 15px;
+    border-radius: 4px;
+    width: 100%;
+    display: table;
+    color: #222222;
+    border: 1px solid #222222;
+    border-left-width: 5px;
 
-  .icon {
-    @include flex(false, false, true);
-    margin-bottom: 10px;
+    .icon {
+        @include vars.flex(false, false, true);
+        margin-bottom: 10px;
 
-    mat-icon {
-      margin-right: 10px;
+        mat-icon {
+            margin-right: 10px;
+        }
     }
-  }
 
-  &-danger {
-    background: rgba($danger, .1);
-    border-color: $danger;
-  }
+    &-danger {
+        background: rgba(vars.$danger, .1);
+        border-color: vars.$danger;
+    }
 
-  &-warning {
-    background: rgba($warning, .1);
-    border-color: $warning;
-  }
+    &-warning {
+        background: rgba(vars.$warning, .1);
+        border-color: vars.$warning;
+    }
 
-  &-info {
-    background: rgba($info, .1);
-    border-color: $info;
-  }
+    &-info {
+        background: rgba(vars.$info, .1);
+        border-color: vars.$info;
+    }
 
-  &-primary {
-    background: rgba($primary, .1);
-    border-color: $primary;
-  }
+    &-primary {
+        background: rgba(vars.$primary, .1);
+        border-color: vars.$primary;
+    }
 
-  &-success {
-    background: rgba($success, .1);
-    border-color: $success;
-  }
+    &-success {
+        background: rgba(vars.$success, .1);
+        border-color: vars.$success;
+    }
 }

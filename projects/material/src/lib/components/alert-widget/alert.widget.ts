@@ -11,16 +11,16 @@ import { MatIcon } from '@angular/material/icon';
 export class AlertWidget implements OnInit, OnChanges {
 
     @Input()
-    public icon: string;
+    public icon: string | undefined;
 
     @Input()
-    public title: string;
+    public title: string | undefined;
 
     @Input()
-    public message: string;
+    public message: string | undefined;
 
     @Input()
-    public type: 'warning' | 'error' | 'info' | 'success';
+    public type: 'warning' | 'error' | 'info' | 'success' | undefined;
 
     constructor() {
     }
