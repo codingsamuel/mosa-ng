@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [20.1.2](https://github.com/codingsamuel/mosa-ng/compare/v20.1.1...v20.1.2) (2025-11-22)
+
+
+### Bug Fixes
+
+* **mosa-date:** update translation for 1 second ([1ac805d](https://github.com/codingsamuel/mosa-ng/commit/1ac805d3a925301c7d6ba387289b8d0d0f2f65b9))
+
 ## [20.1.1](https://github.com/codingsamuel/mosa-ng/compare/v20.1.0...v20.1.1) (2025-11-20)
 
 
