@@ -1,4 +1,4 @@
-// eslint-disable @typescript-eslint/no-redundant-type-constituents
+// eslint-disable
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { ChangeDetectionStrategy, Component, inject, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { ILog, ILoggerConfig } from '@mosa-ng/core';
