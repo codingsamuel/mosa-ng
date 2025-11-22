@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [20.1.2](https://github.com/codingsamuel/mosa-ng/compare/v20.1.1...v20.1.2) (2025-11-22)
+
+
+### Bug Fixes
+
+* **material:** add exports and fix build ([17c36c2](https://github.com/codingsamuel/mosa-ng/commit/17c36c2cc6165de985dde1fd606d1a120c275e1f))
+* **material:** disable lint ([bfad2ba](https://github.com/codingsamuel/mosa-ng/commit/bfad2ba77975c1f346077e4844f3ed75d5260200))
+* **material:** disable lint ([fdc507a](https://github.com/codingsamuel/mosa-ng/commit/fdc507ab3a3b722906e8c6c3b6288c4c9ac6f1b9))
+* **material:** disable lint ([3d6b4fb](https://github.com/codingsamuel/mosa-ng/commit/3d6b4fb1dfcfac279b5dcaea3645e3f73efee7f7))
+* **mosa-date:** update translation for 1 second ([1ac805d](https://github.com/codingsamuel/mosa-ng/commit/1ac805d3a925301c7d6ba387289b8d0d0f2f65b9))
+
 ## [20.1.1](https://github.com/codingsamuel/mosa-ng/compare/v20.1.0...v20.1.1) (2025-11-20)
 
 
