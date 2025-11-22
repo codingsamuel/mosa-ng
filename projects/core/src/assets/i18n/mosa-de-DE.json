@@ -14,6 +14,7 @@
     "mosa.pipes.timeSince.prefix.future": "in ",
     "mosa.pipes.timeSince.suffix.past": "",
     "mosa.pipes.timeSince.suffix.future": "",
+    "mosa.pipes.timeSince.second": "%d Sekunde",
     "mosa.pipes.timeSince.seconds": "%d Sekunden",
     "mosa.pipes.timeSince.minute": "einer Minute",
     "mosa.pipes.timeSince.minutes": "%d Minuten",
