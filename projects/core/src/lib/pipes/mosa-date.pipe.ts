@@ -59,6 +59,7 @@ export class MosaDatePipe implements PipeTransform {
             let timeSince: string = '';
             if (parsedTimestamp > currentTimestamp) {
                 timeSince = (options?.withPrefix ? this.templates[ 'prefixFuture' ] : '') + (
+                    seconds > 0 && seconds < 2 && this.template('second', 1) ||
                     seconds < 60 && this.template('seconds', seconds) ||
                     seconds < 120 && this.template('minute', 1) ||
                     minutes < 60 && this.template('minutes', minutes) ||
@@ -73,6 +74,7 @@ export class MosaDatePipe implements PipeTransform {
                 ) + (options?.withSuffix ? this.templates[ 'suffixFuture' ] : '');
             } else {
                 timeSince = (options?.withPrefix ? this.templates[ 'prefixPast' ] : '') + (
+                    seconds > 0 && seconds < 2 && this.template('second', 1) ||
                     seconds < 60 && this.template('seconds', seconds) ||
                     seconds < 120 && this.template('minute', 1) ||
                     minutes < 60 && this.template('minutes', minutes) ||
@@ -109,6 +111,7 @@ export class MosaDatePipe implements PipeTransform {
             suffixPast: this.myTranslateService.instant('mosa.pipes.timeSince.suffix.past'),
             prefixFuture: this.myTranslateService.instant('mosa.pipes.timeSince.prefix.future'),
             suffixFuture: this.myTranslateService.instant('mosa.pipes.timeSince.suffix.future'),
+            second: this.myTranslateService.instant('mosa.pipes.timeSince.second'),
             seconds: this.myTranslateService.instant('mosa.pipes.timeSince.seconds'),
             minute: this.myTranslateService.instant('mosa.pipes.timeSince.minute'),
             minutes: this.myTranslateService.instant('mosa.pipes.timeSince.minutes'),
