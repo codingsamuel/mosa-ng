@@ -18,7 +18,7 @@ import { NgTemplateOutlet } from '@angular/common';
 export class ListSkeletonLoader extends BaseSkeletonLoader implements OnInit {
 
     @Input()
-    public content: TemplateRef<unknown>;
+    public content: TemplateRef<unknown> | undefined;
 
     public items: number[] = [];
 

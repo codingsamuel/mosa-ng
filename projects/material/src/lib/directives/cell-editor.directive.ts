@@ -1,17 +1,17 @@
-import { ContentChild, Directive, ElementRef, HostListener, OnInit } from '@angular/core';
-import { CellEditorComponent } from '../../components/cell-editor/cell-editor.component';
-import { CellEditorService } from '../../services/cell-editor.service';
+import { ContentChild, Directive, ElementRef, HostListener, inject, OnInit } from '@angular/core';
+import { CellEditorComponent } from '../components/cell-editor/cell-editor.component';
+import { CellEditorService } from '../services/cell-editor.service';
 
 @Directive({ selector: 'td[mosaCellEditor]' })
 export class CellEditorDirective implements OnInit {
 
     @ContentChild(CellEditorComponent)
-    private readonly cellEditor: CellEditorComponent;
+    private readonly cellEditor!: CellEditorComponent;
 
-    constructor(
-        private readonly myElementRef: ElementRef<HTMLElement>,
-        private readonly myCellEditorService: CellEditorService,
-    ) {
+    private readonly myElementRef: ElementRef<HTMLElement> = inject(ElementRef<HTMLElement>);
+    private readonly myCellEditorService: CellEditorService = inject(CellEditorService);
+
+    constructor() {
     }
 
     @HostListener('keydown.escape', [ '$event' ])
@@ -52,7 +52,7 @@ export class CellEditorDirective implements OnInit {
     }
 
     private moveToNextRowCell(e: KeyboardEvent): void {
-        const currentCell: Element = this.cellEditor?.element?.parentElement;
+        const currentCell: Element | null | undefined = this.cellEditor?.element?.parentElement;
         if (!currentCell) {
             return;
         }
@@ -65,55 +65,55 @@ export class CellEditorDirective implements OnInit {
             }
         });
 
-        const targetCell: HTMLElement = this.findNextRowEditableColumn(currentCell, columnDefClass);
+        const targetCell: ChildNode | null = this.findNextRowEditableColumn(currentCell, columnDefClass);
         this.cellEditor.toOutput(true);
         CellEditorDirective.executeMove(e, targetCell);
     }
 
-    private findNextRowEditableColumn(row: Element, matColumnClassName: string): HTMLElement {
-        const nextRow: Element = row.parentElement?.nextElementSibling;
+    private findNextRowEditableColumn(row: Element, matColumnClassName: string): ChildNode | null {
+        const nextRow: Element | null | undefined = row.parentElement?.nextElementSibling;
         if (!nextRow) {
             return null;
         }
 
         const column: Element = nextRow.getElementsByClassName(matColumnClassName)[ 0 ];
         return column?.classList.contains('editable-cell') ?
-            column.firstChild as HTMLElement :
+            column.firstChild :
             this.findNextRowEditableColumn(nextRow, matColumnClassName);
     }
 
-    private findNextEditableColumn(cell: HTMLElement): HTMLElement {
-        let nextCell: HTMLElement = cell.parentElement?.nextElementSibling as HTMLElement;
+    private findNextEditableColumn(cell: Element): ChildNode | null {
+        let nextCell: Element | null | undefined = cell.parentElement?.nextElementSibling;
 
         if (!nextCell) {
-            const nextRow: HTMLElement = cell.parentElement.parentElement.nextElementSibling as HTMLElement;
+            const nextRow: Element | null | undefined = cell.parentElement?.parentElement?.nextElementSibling;
             if (nextRow) {
-                nextCell = nextRow.firstElementChild as HTMLElement;
+                nextCell = nextRow.firstElementChild;
             }
         }
 
         if (nextCell) {
-            return nextCell.classList.contains('editable-cell') ?
-                nextCell.firstChild as HTMLElement :
-                this.findNextEditableColumn(nextCell);
-        } else {
-            return null;
+            return nextCell.classList.contains('editable-cell')
+                ? nextCell.firstChild
+                : this.findNextEditableColumn(nextCell);
         }
+
+        return null;
     }
 
-    private findPreviousEditableColumn(cell: HTMLElement): HTMLElement {
-        let prevCell: HTMLElement = cell.previousElementSibling as HTMLElement;
+    private findPreviousEditableColumn(cell: Element): ChildNode | null {
+        let prevCell: Element | null = cell.previousElementSibling;
 
         if (!prevCell) {
-            const previousRow: HTMLElement = cell.parentElement.previousElementSibling as HTMLElement;
+            const previousRow: Element | null | undefined = cell.parentElement?.previousElementSibling;
             if (previousRow) {
-                prevCell = previousRow.lastElementChild as HTMLElement;
+                prevCell = previousRow.lastElementChild;
             }
         }
 
         if (prevCell) {
             return prevCell.classList.contains('editable-cell') ?
-                prevCell.firstChild as HTMLElement :
+                prevCell.firstChild :
                 this.findPreviousEditableColumn(prevCell);
         } else {
             return null;
@@ -123,36 +123,36 @@ export class CellEditorDirective implements OnInit {
     private moveToCell(event: KeyboardEvent, nextCell: boolean): void {
         const currentCell: HTMLElement = this.cellEditor.element;
         if (this.cellEditor.element != null) {
-            const targetCell: HTMLElement = nextCell ?
-                this.findNextEditableColumn(currentCell) :
-                this.findPreviousEditableColumn(currentCell);
+            const targetCell: ChildNode | null = nextCell
+                ? this.findNextEditableColumn(currentCell)
+                : this.findPreviousEditableColumn(currentCell);
             if (this.myCellEditorService.isEditingCellValid()) {
                 this.cellEditor.toOutput(true);
-                targetCell?.click();
+                (targetCell as HTMLElement)?.click();
             }
             CellEditorDirective.executeMove(event, targetCell);
         }
     }
 
-    private static invokeElementMethod(element: HTMLElement, methodName: string, args?: unknown[]): void {
-        // eslint-disable-next-line @typescript-eslint/no-restricted-types,@typescript-eslint/no-unsafe-function-type
-        (element[ methodName as keyof HTMLElement ] as Function).apply(element, args);
+    private static invokeElementMethod(element: EventTarget | ChildNode | Element | null, methodName: string, args?: unknown[]): void {
+        // eslint-disable-next-line @typescript-eslint/no-restricted-types,@typescript-eslint/no-unsafe-function-type,@typescript-eslint/no-explicit-any
+        ((element as any)[ methodName ] as Function).apply(element, args);
     }
 
-    private static executeMove(e: KeyboardEvent, targetCell: HTMLElement): void {
+    private static executeMove(e: KeyboardEvent, targetCell: ChildNode | null): void {
         e.preventDefault();
         // If datepicker is opened, remove cdk-overlay from dom
         const element: Element = e.composedPath()[ 0 ] as Element;
         if (element.className.includes('td-input-date')) {
             const cdkOverlayContainer: Element = document.getElementsByClassName('cdk-overlay-container')[ 0 ];
-            const cdkBackdrop: HTMLElement = cdkOverlayContainer.getElementsByClassName('cdk-overlay-backdrop')[ 0 ] as HTMLElement;
+            const cdkBackdrop: Element = cdkOverlayContainer.getElementsByClassName('cdk-overlay-backdrop')[ 0 ];
             if (cdkBackdrop != null) {
                 CellEditorDirective.invokeElementMethod(cdkBackdrop, 'click');
             }
             cdkOverlayContainer.innerHTML = '';
         }
 
-        CellEditorDirective.invokeElementMethod(e.target as HTMLElement, 'blur');
+        CellEditorDirective.invokeElementMethod(e.target, 'blur');
         if (targetCell != null) {
             CellEditorDirective.invokeElementMethod(targetCell, 'click');
         }

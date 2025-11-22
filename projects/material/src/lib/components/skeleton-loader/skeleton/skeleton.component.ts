@@ -10,19 +10,19 @@ import { Skeleton } from '../../../models/skeleton.model';
 export class SkeletonComponent implements OnInit {
 
     @Input()
-    public skeleton: Skeleton;
+    public skeleton!: Skeleton;
 
     @Input()
-    public width: number | string;
+    public width: number | string = 0;
 
     @Input()
-    public height: number | string;
+    public height: number | string = 0;
 
     @Input()
-    public randomizeOffset: number;
+    public randomizeOffset: number = 0;
 
     @Input()
-    public borderRadius: number | string;
+    public borderRadius: number | string| undefined;
 
     private readonly element: HTMLElement;
 
@@ -41,24 +41,25 @@ export class SkeletonComponent implements OnInit {
                 randomizeOffset: this.randomizeOffset,
             });
         }
+
         this.element.style.width = this.actualWidth;
         this.element.style.height = SkeletonComponent.value(this.skeleton.height);
         this.element.style.borderRadius = SkeletonComponent.value(this.skeleton.borderRadius);
     }
 
     private get actualWidth(): string {
-        if (this.skeleton.randomizeOffset > 0 && typeof this.skeleton.width === 'number') {
+        if (this.skeleton.randomizeOffset && this.skeleton.randomizeOffset > 0 && typeof this.skeleton.width === 'number') {
             return `${this.skeleton.width - Math.floor(Math.random() * this.skeleton.randomizeOffset)}px`;
         }
 
         return SkeletonComponent.value(this.skeleton.width);
     }
 
-    private static value(val: number | string): string {
+    private static value(val: number | string | undefined): string {
         if (typeof val === 'number') {
             return `${val}px`;
         }
-        return val;
+        return val || '';
     }
 
 }

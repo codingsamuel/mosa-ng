@@ -1,4 +1,4 @@
-@import "../../styles/vars";
+@use "../../styles/vars" as vars;
 
 :host {
     display: flex;
@@ -45,7 +45,7 @@
 
 ::ng-deep input.cell-input {
     font-size: 14px;
-    font-family: $fontRoboto;
+    font-family: vars.$fontRoboto;
     background: none;
     flex-grow: 1;
     outline: 0;

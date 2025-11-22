@@ -22,8 +22,8 @@ export function isNullOrEmpty(str: string | null | undefined): boolean {
  * Checks if a string or number is zero or higher
  * @param num
  */
-export function isZeroOrHigher(num: number | string | null): boolean {
-    return num !== null && +num >= 0;
+export function isZeroOrHigher(num: number | string | null | undefined): boolean {
+    return num != null && +num >= 0;
 }
 
 /**

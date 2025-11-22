@@ -6,9 +6,9 @@ import { CellEditorComponent } from '../components/cell-editor/cell-editor.compo
 })
 export class CellEditorService {
 
-    public cellEditor: CellEditorComponent;
+    public cellEditor: CellEditorComponent | undefined;
 
-    private documentEditListener: (e: MouseEvent) => void;
+    private documentEditListener: ((e: MouseEvent) => void | undefined) | undefined;
 
     constructor() {
     }
@@ -27,12 +27,12 @@ export class CellEditorService {
             this.documentEditListener = (e: MouseEvent): void => {
                 e.preventDefault();
                 const target: HTMLElement = e.target as HTMLElement;
-                const mosaCellEditor: HTMLElement = target.closest('mosa-cell-editor');
+                const mosaCellEditor: HTMLElement | null = target.closest('mosa-cell-editor');
                 if (this.cellEditor && mosaCellEditor !== this.cellEditor.element && !target.classList.contains('cell-output')) {
-                    this.documentEditListener = null;
+                    document.removeEventListener('click', this.documentEditListener!);
+                    this.documentEditListener = undefined;
                     this.cellEditor.toOutput(true);
-                    this.cellEditor = null;
-                    document.removeEventListener('click', this.documentEditListener);
+                    this.cellEditor = undefined;
                 }
             };
 

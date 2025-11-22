@@ -11,7 +11,7 @@ export class Skeleton {
         this.height = isZeroOrHigher(skeleton?.height) ? skeleton?.height : 15;
         if ((isNumber(skeleton?.borderRadius) && isZeroOrHigher(skeleton?.borderRadius)) ||
             (typeof skeleton?.borderRadius === 'string' && !isNullOrEmpty(skeleton?.borderRadius))) {
-            this.borderRadius = skeleton.borderRadius;
+            this.borderRadius = skeleton!.borderRadius;
         }
         this.borderRadius = this.borderRadius || 4;
         this.randomizeOffset = skeleton?.randomizeOffset || 0;

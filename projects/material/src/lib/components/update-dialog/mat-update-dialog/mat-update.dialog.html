@@ -1,19 +1,21 @@
 <h1 class="active" mat-dialog-title>{{ config.title | translate }}</h1>
 <div mat-dialog-content>
-  {{ config.message | translate }}
+    {{ config.message | translate }}
 </div>
 <div mat-dialog-actions>
-  <button (click)="close(0)" [class.cancel-btn]="config.showIgnore" mat-stroked-button>
-    {{ 'mosa.commons.buttons.cancel' | translate | uppercase }}
-  </button>
-  @if (config.showIgnore) {
-    <button (click)="close(1)" color="primary" mat-stroked-button>
-      {{ 'mosa.commons.buttons.ignoreFor' | translate: {
-      duration: config.ignoreTimeout | mosaDuration: 'auto' | async | uppercase
-      } | uppercase }}
+    <button (click)="close(0)" [class.cancel-btn]="config.showIgnore" mat-stroked-button>
+        {{ 'mosa.commons.buttons.cancel' | translate | uppercase }}
     </button>
-  }
-  <button mat-flat-button color="primary" (click)="close(2)">
-    {{ 'mosa.commons.buttons.reloadNow' | translate | uppercase}}
-  </button>
+    @if (config.showIgnore) {
+        <button (click)="close(1)" color="primary" mat-stroked-button>
+            {{
+                'mosa.commons.buttons.ignoreFor' | translate: {
+                    duration: config.ignoreTimeout | mosaDuration: 'auto' | async | uppercase
+                } | uppercase
+            }}
+        </button>
+    }
+    <button mat-flat-button color="primary" (click)="close(2)">
+        {{ 'mosa.commons.buttons.reloadNow' | translate | uppercase }}
+    </button>
 </div>

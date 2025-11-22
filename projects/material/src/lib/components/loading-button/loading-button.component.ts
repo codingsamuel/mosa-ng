@@ -26,19 +26,19 @@ export class LoadingButtonComponent {
     public mode: 'spinner' | 'progress-bar' = 'spinner';
 
     @Input()
-    public loading: boolean;
+    public loading: boolean = false;
 
     @Input()
-    public disabled: boolean;
+    public disabled: boolean = false;
 
     @Input()
     public color: ThemePalette = 'primary';
 
     @Input()
-    public buttonType: 'default' | 'raised' | 'stroked' | 'flat' | 'icon';
+    public buttonType: 'default' | 'raised' | 'stroked' | 'flat' | 'icon' = 'default';
 
     @Input()
-    public icon: string;
+    public icon: string | undefined;
 
     @Output()
     public click: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
