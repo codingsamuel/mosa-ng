@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [21.0.0](https://github.com/codingsamuel/mosa-ng/compare/v20.1.2...v21.0.0) (2026-01-06)
+
+
+### Features
+
+* **angular-21:** fix build ([d5de2e7](https://github.com/codingsamuel/mosa-ng/commit/d5de2e73d4c8b9d0d7ead3ff945bd77747eb402b))
+* **angular-21:** fix build and update dependencies ([484ef57](https://github.com/codingsamuel/mosa-ng/commit/484ef57f3e58280a74d16dc0be53432499947846))
+* **angular-21:** update @angular/cdk@21 @angular/material@21 ([d26aa1b](https://github.com/codingsamuel/mosa-ng/commit/d26aa1b47c734880e3d0d66b1b1a34de1ab49af4))
+* **angular-21:** update @angular/cli@21 @angular/core@21 ([b193a6c](https://github.com/codingsamuel/mosa-ng/commit/b193a6cd1409a36c089bd1410605c305d1689c78))
+* **angular-21:** update angular-eslint@21 ([7067e95](https://github.com/codingsamuel/mosa-ng/commit/7067e95b121b923b92ca9a3e9b3a4ee8db957e91))
+
 ## [20.1.2](https://github.com/codingsamuel/mosa-ng/compare/v20.1.1...v20.1.2) (2025-11-22)
 
 
