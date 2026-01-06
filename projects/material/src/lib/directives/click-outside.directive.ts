@@ -18,20 +18,23 @@ export class ClickOutsideDirective {
     }
 
     @HostListener('document:click', [ '$event.target' ])
-    private onClick(targetElement: HTMLElement): void {
+    public onClick(targetElement: EventTarget | null): void {
         const clickedInside = this.elementRef.nativeElement.contains(targetElement);
         const whiteListedClass = 'whitelisted';
-        if (!clickedInside) {
-            if (this.enableWhiteListing) {
-                const isWhiteListed = targetElement.classList.contains(whiteListedClass)
-                    || ClickOutsideDirective.getClosest(targetElement, whiteListedClass)
-                    || ClickOutsideDirective.getClosest(targetElement, 'cdk-overlay-container');
-                if (!isWhiteListed) {
-                    this.clickOutside.emit([ this.elementRef.nativeElement, targetElement ]);
-                }
-            } else {
-                this.clickOutside.emit([ this.elementRef.nativeElement, targetElement ]);
+        if (clickedInside || !targetElement) {
+            return;
+        }
+
+        const htmlElement: HTMLElement = targetElement as HTMLElement;
+        if (this.enableWhiteListing) {
+            const isWhiteListed = htmlElement.classList.contains(whiteListedClass)
+                || ClickOutsideDirective.getClosest(htmlElement, whiteListedClass)
+                || ClickOutsideDirective.getClosest(htmlElement, 'cdk-overlay-container');
+            if (!isWhiteListed) {
+                this.clickOutside.emit([ this.elementRef.nativeElement, htmlElement ]);
             }
+        } else {
+            this.clickOutside.emit([ this.elementRef.nativeElement, htmlElement ]);
         }
     }
 

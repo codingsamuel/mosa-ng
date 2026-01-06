@@ -15,7 +15,7 @@ export class CellEditorDirective implements OnInit {
     }
 
     @HostListener('keydown.escape', [ '$event' ])
-    public onEscapeKeyDown(e: KeyboardEvent): void {
+    public onEscapeKeyDown(e: Event): void {
         e.preventDefault();
         this.cellEditor.toOutput();
     }
@@ -23,9 +23,9 @@ export class CellEditorDirective implements OnInit {
     @HostListener('keydown.tab', [ '$event' ])
     @HostListener('keydown.shift.tab', [ '$event' ])
     @HostListener('keydown.meta.tab', [ '$event' ])
-    public onShiftKeyDown(e: KeyboardEvent): void {
+    public onShiftKeyDown(e: Event): void {
         e.preventDefault();
-        if (e.shiftKey) {
+        if ((e as KeyboardEvent).shiftKey) {
             this.moveToCell(e, false);
         } else {
             this.moveToCell(e, true);
@@ -33,7 +33,7 @@ export class CellEditorDirective implements OnInit {
     }
 
     @HostListener('keydown.enter', [ '$event' ])
-    public onEnterKeyDown(e: KeyboardEvent): void {
+    public onEnterKeyDown(e: Event): void {
         e.preventDefault();
         if (this.myCellEditorService.isEditingCellValid()) {
             this.moveToNextRowCell(e);
@@ -41,7 +41,7 @@ export class CellEditorDirective implements OnInit {
     }
 
     @HostListener('click', [ '$event' ])
-    public onClick(e: MouseEvent): void {
+    public onClick(e: Event): void {
         e.preventDefault();
         this.myCellEditorService.updateEditingCell(this.cellEditor);
         this.cellEditor.cellClick.emit();
@@ -51,7 +51,7 @@ export class CellEditorDirective implements OnInit {
         this.myElementRef.nativeElement.classList.add('editable-cell');
     }
 
-    private moveToNextRowCell(e: KeyboardEvent): void {
+    private moveToNextRowCell(e: Event): void {
         const currentCell: Element | null | undefined = this.cellEditor?.element?.parentElement;
         if (!currentCell) {
             return;
@@ -120,7 +120,7 @@ export class CellEditorDirective implements OnInit {
         }
     }
 
-    private moveToCell(event: KeyboardEvent, nextCell: boolean): void {
+    private moveToCell(event: Event, nextCell: boolean): void {
         const currentCell: HTMLElement = this.cellEditor.element;
         if (this.cellEditor.element != null) {
             const targetCell: ChildNode | null = nextCell
@@ -139,7 +139,7 @@ export class CellEditorDirective implements OnInit {
         ((element as any)[ methodName ] as Function).apply(element, args);
     }
 
-    private static executeMove(e: KeyboardEvent, targetCell: ChildNode | null): void {
+    private static executeMove(e: Event, targetCell: ChildNode | null): void {
         e.preventDefault();
         // If datepicker is opened, remove cdk-overlay from dom
         const element: Element = e.composedPath()[ 0 ] as Element;
