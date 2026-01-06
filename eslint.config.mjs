@@ -85,6 +85,7 @@ export default defineConfig([ {
         '@typescript-eslint/consistent-generic-constructors': [ 'error', 'type-annotation' ],
 
         '@typescript-eslint/no-empty-object-type': 'error',
+        '@typescript-eslint/no-redundant-type-constituents': 'off',
         '@typescript-eslint/no-restricted-types': [ 'error', {
             types: {
                 Object: 'Avoid using the `Object` type. Did you mean `object`?',
