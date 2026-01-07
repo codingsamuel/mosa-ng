@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [21.0.1](https://github.com/codingsamuel/mosa-ng/compare/v21.0.0...v21.0.1) (2026-01-07)
+
 ## [21.0.0](https://github.com/codingsamuel/mosa-ng/compare/v20.1.2...v21.0.0) (2026-01-06)
 
 
