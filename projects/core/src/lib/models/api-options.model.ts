@@ -13,6 +13,7 @@ export interface IHttpOptions {
 
 export interface IApiOptions {
     skipAuth?: boolean;
+    skipRefreshToken?: boolean;
     skipContentType?: boolean;
     skipErrorHandling?: boolean;
     httpOptions?: IHttpOptions;

@@ -1,11 +1,12 @@
 import { HttpClient, HttpErrorResponse, HttpEvent, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { firstValueFrom, Observable, throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { IApiOptions } from '../models/api-options.model';
 import { ITokenSettings } from '../models/token-settings.model';
 import { CoreLoggerService } from './core-logger.service';
 import { isNullOrEmpty } from '../utils/commons.util';
+import { IApiResult } from '../models/api-result.model';
 
 export const LOCAL_STORAGE_TOKEN_KEY = 'tokenSettings';
 
@@ -14,11 +15,10 @@ export const LOCAL_STORAGE_TOKEN_KEY = 'tokenSettings';
 })
 export class ApiService {
 
-    constructor(
-        private readonly myCoreLoggerService: CoreLoggerService,
-        private readonly myHttpClient: HttpClient,
-    ) {
-    }
+    private refreshTokenUrl: string = '/api/auth/token/refresh';
+
+    private readonly myCoreLoggerService: CoreLoggerService = inject(CoreLoggerService);
+    private readonly myHttpClient: HttpClient = inject(HttpClient);
 
     /**
      * Sets the token
@@ -47,6 +47,27 @@ export class ApiService {
         window.localStorage.removeItem(LOCAL_STORAGE_TOKEN_KEY);
     }
 
+    public setRefreshTokenUrl(url: string): void {
+        this.refreshTokenUrl = url;
+    }
+
+    public getRefreshTokenUrl(): string {
+        return this.refreshTokenUrl;
+    }
+
+    public refreshToken<T>(url: string, data?: T, headers?: HttpHeaders, options?: IApiOptions): Observable<IApiResult<ITokenSettings>> {
+        options = ApiService.serializeOptions(options);
+        headers = this.getHeaders(headers, options);
+
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        return this.myHttpClient.post<IApiResult<ITokenSettings>>(url, data, { ...options.httpOptions as any, headers })
+            .pipe(
+                map((response: HttpEvent<IApiResult<ITokenSettings>>) => this.handleResponse(response)),
+                tap((res: IApiResult<ITokenSettings>) => this.setToken({ ...this.getToken()!, ...res.data })),
+                catchError((err: HttpErrorResponse): Observable<never> => this.handleError(err, options)),
+            );
+    }
+
     /**
      * Makes an http get call
      * @param url
@@ -57,9 +78,18 @@ export class ApiService {
         options = ApiService.serializeOptions(options);
         headers = this.getHeaders(headers, options);
 
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        // const tokenSettings: ITokenSettings | null = this.getToken();
+        // let refreshCall: Observable<any | null> = of(null);
+        // // console.log('tokenSettings.expiration', tokenSettings.expiration, new Date(tokenSettings.expiration!), new Date());
+        // if (!options?.skipRefreshToken && tokenSettings?.expiration && new Date(tokenSettings.expiration) < new Date() && tokenSettings.refreshToken) {
+        //     // Call refresh token endpoint
+        //     refreshCall = this.post(this.refreshTokenUrl, { refreshToken: tokenSettings.refreshToken }, undefined, { skipRefreshToken: true });
+        // }
+
         return this.myHttpClient.get<T>(url, { ...options.httpOptions as any, headers })
             .pipe(
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                // switchMap(() => ,
                 map((response: HttpEvent<T>) => this.handleResponse(response)),
                 catchError((err: HttpErrorResponse): Observable<never> => this.handleError(err, options)),
             );
@@ -221,7 +251,7 @@ export class ApiService {
 
         const tokenSettings: ITokenSettings | null = this.getToken();
         if (!options?.skipAuth && tokenSettings) {
-            headers = headers.set('Authorization', `${tokenSettings.tokenType} ${tokenSettings.token}`);
+            headers = headers.set('Authorization', `${tokenSettings.tokenType} ${tokenSettings.accessToken}`);
         }
         return headers;
     }
