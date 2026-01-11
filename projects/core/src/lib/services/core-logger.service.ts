@@ -37,14 +37,6 @@ export class CoreLoggerService {
             return msg;
         }
 
-        if (err instanceof HttpErrorResponse) {
-            if (typeof err.error !== 'string') {
-                return `mosa.commons.errors.status[${err.status}].message`;
-            }
-
-            return err.error;
-        }
-
         if (typeof err === 'string') {
             msg = err;
         } else if (err.msg) {
@@ -63,6 +55,14 @@ export class CoreLoggerService {
 
         if (typeof err.error === 'string') {
             msg = err.error;
+        }
+
+        if (!msg && err instanceof HttpErrorResponse) {
+            if (typeof err.error !== 'string') {
+                return `mosa.commons.errors.status[${err.status}].message`;
+            }
+
+            return err.error;
         }
 
         return msg;
