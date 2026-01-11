@@ -5,26 +5,24 @@ import { inject } from '@angular/core';
 import { ApiService } from '../api.service';
 import { ITokenSettings } from '../../models/token-settings.model';
 
-export function refreshTokenInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<any>> {
+export function refreshTokenInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> {
     const apiService = inject(ApiService);
 
     return next(req).pipe(
-        catchError((err) => {
-            if (err instanceof HttpErrorResponse) {
-                if (err?.status === 401) {
-                    return apiService.refreshToken(apiService.getRefreshTokenUrl(), { refreshToken: apiService.getToken()?.refreshToken, accessToken: apiService.getToken()?.accessToken, tokenType: apiService.getToken()?.tokenType })
-                        .pipe(mergeMap(() => next(updateHeader(req, apiService))));
-                }
+        catchError((err: unknown) => {
+            if (err instanceof HttpErrorResponse && err?.status === 401) {
+                return apiService.refreshToken(apiService.getRefreshTokenUrl(), apiService.getToken())
+                    .pipe(mergeMap(() => next(updateHeader(req, apiService))));
             }
             return throwError(() => err);
         }),
     );
 }
 
-function updateHeader(req: any, myApiService: any): HttpRequest<any> {
-    const authToken: ITokenSettings = myApiService.getToken();
+function updateHeader(req: HttpRequest<unknown>, apiService: ApiService): HttpRequest<unknown> {
+    const authToken: ITokenSettings | null = apiService.getToken();
     req = req.clone({
-        headers: req.headers.set('Authorization', `Bearer ${authToken?.accessToken}`),
+        headers: req.headers.set('Authorization', `${authToken?.tokenType} ${authToken?.accessToken}`),
     });
     return req;
 }

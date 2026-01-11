@@ -78,17 +78,9 @@ export class ApiService {
         options = ApiService.serializeOptions(options);
         headers = this.getHeaders(headers, options);
 
-        // const tokenSettings: ITokenSettings | null = this.getToken();
-        // let refreshCall: Observable<any | null> = of(null);
-        // // console.log('tokenSettings.expiration', tokenSettings.expiration, new Date(tokenSettings.expiration!), new Date());
-        // if (!options?.skipRefreshToken && tokenSettings?.expiration && new Date(tokenSettings.expiration) < new Date() && tokenSettings.refreshToken) {
-        //     // Call refresh token endpoint
-        //     refreshCall = this.post(this.refreshTokenUrl, { refreshToken: tokenSettings.refreshToken }, undefined, { skipRefreshToken: true });
-        // }
-
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         return this.myHttpClient.get<T>(url, { ...options.httpOptions as any, headers })
             .pipe(
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 // switchMap(() => ,
                 map((response: HttpEvent<T>) => this.handleResponse(response)),
                 catchError((err: HttpErrorResponse): Observable<never> => this.handleError(err, options)),
