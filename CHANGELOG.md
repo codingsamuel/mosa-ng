@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [21.0.2](https://github.com/codingsamuel/mosa-ng/compare/v21.0.1...v21.0.2) (2026-01-11)
+
+
+### Features
+
+* **api-service:** extend api-service functions ([26e684d](https://github.com/codingsamuel/mosa-ng/commit/26e684ded05544918626d485aaa38c917bf8c3a7))
+
+
+### Bug Fixes
+
+* **loading-button:** migrate to to angular 21 ([5c4e66b](https://github.com/codingsamuel/mosa-ng/commit/5c4e66b2a4eedb4dc9552441b09b258cf9d5e0ec))
+* **logger:** fix logger for mobile screens ([b8b6582](https://github.com/codingsamuel/mosa-ng/commit/b8b65826a2e5b89342ccb9a1590bf4e2abdc0938))
+* update peer dependencies ([cf3b1de](https://github.com/codingsamuel/mosa-ng/commit/cf3b1de6311f5eb902ae927b986d2f16959c5f56))
+
 ## [21.0.1](https://github.com/codingsamuel/mosa-ng/compare/v21.0.0...v21.0.1) (2026-01-07)
 
 ## [21.0.0](https://github.com/codingsamuel/mosa-ng/compare/v20.1.2...v21.0.0) (2026-01-06)
