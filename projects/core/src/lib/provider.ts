@@ -1,5 +1,7 @@
 import { EnvironmentProviders, inject, makeEnvironmentProviders, provideAppInitializer } from '@angular/core';
 import { AssetsI18nLoaderService } from './services/translation/assets-i18n-loader.service';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { refreshTokenInterceptor } from './services/interceptors/refresh-token.interceptor';
 
 /*
  * Public API Surface of core
@@ -20,12 +22,14 @@ export * from './services/translation/assets-i18n-loader.service';
  * Guards
  */
 export * from './services/guards/can-deactivate.guard';
+export * from './services/guards/authentication.guard';
 
 /**
  * Models
  */
 export * from './models/dictionary-item.model';
 export * from './models/api-options.model';
+export * from './models/api-result.model';
 export * from './models/mosa-duration.model';
 export * from './models/token-settings.model';
 export * from './models/transform-matrix.model';
@@ -92,4 +96,5 @@ function initI18nCore(i18n: AssetsI18nLoaderService): Promise<void> {
 export const provideMosaCore: () => EnvironmentProviders = () => makeEnvironmentProviders([
     provideAppInitializer(() => initI18n(inject(AssetsI18nLoaderService))),
     provideAppInitializer(() => initI18nCore(inject(AssetsI18nLoaderService))),
+    provideHttpClient(withInterceptors([ refreshTokenInterceptor ])),
 ]);

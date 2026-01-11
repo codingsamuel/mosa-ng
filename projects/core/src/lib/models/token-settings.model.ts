@@ -1,5 +1,6 @@
 export interface ITokenSettings {
     tokenType: string;
-    token: string;
+    accessToken: string;
     expiration?: string;
+    refreshToken?: string;
 }
