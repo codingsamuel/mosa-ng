@@ -1,55 +1,68 @@
 @switch (buttonType) {
     @default {
         <button (click)="onClick($event)" [class]="mode" [color]="color"
-                [disabled]="loading || disabled" mat-button>
-            <ng-container [ngTemplateOutlet]="buttonContent"></ng-container>
+                [disabled]="loading || disabled" mat-button [class.with-spinner]="mode === 'spinner'">
+            @if (icon) {
+                <mat-icon>{{ icon }}</mat-icon>
+            }
+            <ng-container [ngTemplateOutlet]="labelContent"/>
+
         </button>
-    } @case ('raised') {
+    }
+    @case ('raised') {
         <button (click)="onClick($event)" [class]="mode" [color]="color"
-                [disabled]="loading || disabled" mat-raised-button>
-            <ng-container [ngTemplateOutlet]="buttonContent"></ng-container>
+                [disabled]="loading || disabled" mat-raised-button [class.with-spinner]="mode === 'spinner'">
+            @if (icon) {
+                <mat-icon>{{ icon }}</mat-icon>
+            }
+            <ng-container [ngTemplateOutlet]="labelContent"/>
+
         </button>
-    } @case ('stroked') {
+    }
+    @case ('stroked') {
         <button (click)="onClick($event)" [class]="mode" [color]="color"
-                [disabled]="loading || disabled" mat-stroked-button>
-            <ng-container [ngTemplateOutlet]="buttonContent"></ng-container>
+                [disabled]="loading || disabled" mat-stroked-button [class.with-spinner]="mode === 'spinner'">
+            @if (icon) {
+                <mat-icon>{{ icon }}</mat-icon>
+            }
+            <ng-container [ngTemplateOutlet]="labelContent"/>
+
         </button>
-    } @case ('flat') {
+    }
+    @case ('flat') {
         <button (click)="onClick($event)" [class]="mode" [color]="color"
-                [disabled]="loading || disabled" mat-flat-button>
-            <ng-container [ngTemplateOutlet]="buttonContent"></ng-container>
+                [disabled]="loading || disabled" mat-flat-button [class.with-spinner]="mode === 'spinner'">
+            @if (icon) {
+                <mat-icon>{{ icon }}</mat-icon>
+            }
+            <ng-container [ngTemplateOutlet]="labelContent"/>
         </button>
-    } @case ('icon') {
+        <ng-container [ngTemplateOutlet]="loaderContent"/>
+    }
+    @case ('icon') {
         <button (click)="onClick($event)" [class]="mode" [color]="color"
                 [disabled]="loading || disabled" mat-icon-button>
             @if (loading) {
-                <mat-spinner class="icon-spinner" [color]="color" [diameter]="40" [strokeWidth]="2"></mat-spinner>
-            } @if (icon) {
-            <mat-icon>{{ icon }}</mat-icon>
-        }
+                <mat-progress-spinner [color]="color" [diameter]="40" [strokeWidth]="2"/>
+            }
+            @if (icon) {
+                <mat-icon>{{ icon }}</mat-icon>
+            }
             <ng-content select=".icon"></ng-content>
         </button>
     }
 }
 
-<ng-template #buttonContent>
-    @if (icon) {
-        <mat-icon>{{ icon }}</mat-icon>
-    } @switch (mode) {
-    @case ('spinner') {
-        <div class="spinner-inner">
-            @if (loading) {
-                <mat-spinner [color]="color" [diameter]="20"></mat-spinner>
-            }
-            <span [class.loading]="loading" class="label">
-          <ng-content select=".spinner-label"></ng-content>
-        </span>
-        </div>
-    } @case ('progress-bar') {
-        <ng-content select=".progress-bar-label"></ng-content>
-        @if (loading) {
-            <mat-progress-bar [color]="color" mode="indeterminate"></mat-progress-bar>
+<ng-template #loaderContent>
+    @if (loading) {
+        @if (mode === 'spinner') {
+            <mat-spinner [diameter]="20"/>
+        } @else {
+            <mat-progress-bar mode="indeterminate"/>
         }
     }
-}
+</ng-template>
+
+<ng-template #labelContent>
+    <ng-content/>
 </ng-template>
