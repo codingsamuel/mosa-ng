@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [21.0.3](https://github.com/codingsamuel/mosa-ng/compare/v21.0.2...v21.0.3) (2026-01-24)
+
+
+### Features
+
+* **language:** separate language files ([e79a46c](https://github.com/codingsamuel/mosa-ng/commit/e79a46c561942745bfacccdb8cdc8f4113fa66e9))
+* **language:** separate language files ([4e2494d](https://github.com/codingsamuel/mosa-ng/commit/4e2494d450f240e9a609ff97e3fb0fb78c3658f1))
+
+
+### Bug Fixes
+
+* **logger:** correct margin for mobile devices ([6e5c560](https://github.com/codingsamuel/mosa-ng/commit/6e5c560d0cf3f565b599aee814cecaff654c6067))
+* **logger:** fix linting ([a3917f2](https://github.com/codingsamuel/mosa-ng/commit/a3917f20bdd91b57f9ee05b3f8d2cef03f19a18b))
+
 ## [21.0.2](https://github.com/codingsamuel/mosa-ng/compare/v21.0.1...v21.0.2) (2026-01-11)
 
 
