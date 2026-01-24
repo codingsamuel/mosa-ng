@@ -1,0 +1,35 @@
+﻿{
+    "mosa.commons.logs.error.label": "Error",
+
+    "mosa.commons.errors.status[400].message": "An unexpected error happened",
+    "mosa.commons.errors.status[403].message": "Forbidden request",
+    "mosa.commons.errors.status[401].message": "Unauthorized request",
+    "mosa.commons.errors.status[404].message": "Not found",
+    "mosa.commons.errors.status[500].message": "Internal Server Error",
+
+    "mosa.pipes.timeSince.prefix.past": "",
+    "mosa.pipes.timeSince.prefix.future": "",
+    "mosa.pipes.timeSince.suffix.past": " ago",
+    "mosa.pipes.timeSince.suffix.future": "",
+    "mosa.pipes.timeSince.second": "%d second",
+    "mosa.pipes.timeSince.seconds": "%d seconds",
+    "mosa.pipes.timeSince.minute": "a minute",
+    "mosa.pipes.timeSince.minutes": "%d minutes",
+    "mosa.pipes.timeSince.hour": "an hour",
+    "mosa.pipes.timeSince.hours": "%d hours",
+    "mosa.pipes.timeSince.day": "a day",
+    "mosa.pipes.timeSince.days": "%d days",
+    "mosa.pipes.timeSince.month": "a month",
+    "mosa.pipes.timeSince.months": "%d months",
+    "mosa.pipes.timeSince.year": "a year",
+    "mosa.pipes.timeSince.years": "%d years",
+
+    "mosa.pipes.dateTime[seconds].label": "second",
+    "mosa.pipes.dateTime[seconds].plural.label": "seconds",
+    "mosa.pipes.dateTime[minutes].label": "minute",
+    "mosa.pipes.dateTime[minutes].plural.label": "minutes",
+    "mosa.pipes.dateTime[hours].label": "hour",
+    "mosa.pipes.dateTime[hours].plural.label": "hours",
+    "mosa.pipes.dateTime[days].label": "day",
+    "mosa.pipes.dateTime[days].plural.label": "days"
+}

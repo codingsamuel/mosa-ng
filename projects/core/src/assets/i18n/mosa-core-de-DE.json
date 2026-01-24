@@ -1,0 +1,35 @@
+{
+    "mosa.commons.logs.error.label": "Fehler",
+
+    "mosa.commons.errors.status[400].message": "Die Anfrage konnte nicht verarbeitet werden",
+    "mosa.commons.errors.status[401].message": "Sie sind nicht angemeldet",
+    "mosa.commons.errors.status[403].message": "Sie haben keine Berechtigung für diese Aktion",
+    "mosa.commons.errors.status[404].message": "Die angeforderte Ressource wurde nicht gefunden",
+    "mosa.commons.errors.status[500].message": "Ein interner Fehler ist aufgetreten",
+
+    "mosa.pipes.timeSince.prefix.past": "vor ",
+    "mosa.pipes.timeSince.prefix.future": "in ",
+    "mosa.pipes.timeSince.suffix.past": "",
+    "mosa.pipes.timeSince.suffix.future": "",
+    "mosa.pipes.timeSince.second": "%d Sekunde",
+    "mosa.pipes.timeSince.seconds": "%d Sekunden",
+    "mosa.pipes.timeSince.minute": "einer Minute",
+    "mosa.pipes.timeSince.minutes": "%d Minuten",
+    "mosa.pipes.timeSince.hour": "einer Stunde",
+    "mosa.pipes.timeSince.hours": "%d Stunden",
+    "mosa.pipes.timeSince.day": "einem Tag",
+    "mosa.pipes.timeSince.days": "%d Tagen",
+    "mosa.pipes.timeSince.month": "einem Monat",
+    "mosa.pipes.timeSince.months": "%d Monaten",
+    "mosa.pipes.timeSince.year": "einem Jahr",
+    "mosa.pipes.timeSince.years": "%d Jahren",
+
+    "mosa.pipes.dateTime[seconds].label": "Sekunde",
+    "mosa.pipes.dateTime[seconds].plural.label": "Sekunden",
+    "mosa.pipes.dateTime[minutes].label": "Minute",
+    "mosa.pipes.dateTime[minutes].plural.label": "Minuten",
+    "mosa.pipes.dateTime[hours].label": "Stunde",
+    "mosa.pipes.dateTime[hours].plural.label": "Stunden",
+    "mosa.pipes.dateTime[days].label": "Tag",
+    "mosa.pipes.dateTime[days].plural.label": "Tage"
+}

@@ -13,6 +13,8 @@ export class AssetsI18nLoaderService {
     protected priority: number = 0;
     protected supportedLanguages: string[] = [];
 
+    private supportedLanguagesPromise: Promise<string[]> | null = null;
+
     constructor(
         protected myHttpClient: HttpClient,
         protected myTranslateCollectorService: TranslateCollectorService,
@@ -20,27 +22,44 @@ export class AssetsI18nLoaderService {
     }
 
     public async init(path?: string, libName?: string, priority?: number): Promise<void> {
-        if (this.supportedLanguages.length > 0) {
-            for (let i: number = 0; i < this.supportedLanguages.length; i++) {
-                await firstValueFrom(this.loadTranslations(this.supportedLanguages[ i ], path, libName, priority));
-            }
-            return;
-        }
+        const languages: string[] = await this.getSupportedLanguages();
 
-        const res: { languages: string[] } | null = await firstValueFrom(this.myHttpClient.get<{ languages: string[] }>(`assets/i18n/supported-languages.json?v=${getRandomString()}`)).catch(() => null);
-        if (!res) {
-            console.error('Missing file -> assets/i18n/supported-languages.json');
-            return;
-        }
-
-        this.supportedLanguages = res.languages;
-
-        for (let i: number = 0; i < this.supportedLanguages.length; i++) {
-            await firstValueFrom(this.loadTranslations(this.supportedLanguages[ i ], path, libName, priority));
+        for (const lang of languages) {
+            await firstValueFrom(this.loadTranslations(lang, path, libName, priority));
         }
     }
 
-    protected loadTranslations(lang: string, path?: string, libName?: string, priority?: number): Observable<Record<string, string> | null> {
+    private async getSupportedLanguages(): Promise<string[]> {
+        // If we already have the data, return it immediately
+        if (this.supportedLanguages.length > 0) {
+            return this.supportedLanguages;
+        }
+
+        // If a request is already in flight, return that same promise
+        if (this.supportedLanguagesPromise) {
+            return this.supportedLanguagesPromise;
+        }
+
+        // Create the promise for the HTTP call
+        this.supportedLanguagesPromise = (async (): Promise<string[]> => {
+            const url = `assets/i18n/supported-languages.json?v=${getRandomString()}`;
+            const res = await firstValueFrom(
+                this.myHttpClient.get<{ languages: string[] }>(url)
+            ).catch(() => null);
+
+            if (!res?.languages) {
+                this.supportedLanguagesPromise = null;
+                return [];
+            }
+
+            this.supportedLanguages = res.languages;
+            return res.languages;
+        })();
+
+        return this.supportedLanguagesPromise;
+    }
+
+    private loadTranslations(lang: string, path?: string, libName?: string, priority?: number): Observable<Record<string, string> | null> {
         const filename: string = libName ? `${libName}-${lang}.json` : `${lang}.json`;
         return this.myHttpClient.get<Record<string, string>>(`${(path || './assets/i18n/') + filename}?v=${getRandomString()}`)
             .pipe(
