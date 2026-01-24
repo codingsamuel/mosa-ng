@@ -3,7 +3,7 @@
 
 :host {
     @include vars.size(100%, 100%);
-    @include vars.move(0, 0);
+    @include vars.move(safe-area-inset-top, 0);
     @include vars.flex(true, false);
     position: fixed;
     z-index: 10000;

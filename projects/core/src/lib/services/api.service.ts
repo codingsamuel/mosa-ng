@@ -217,7 +217,7 @@ export class ApiService {
 
     private handleError(err: HttpErrorResponse, options: IApiOptions): Observable<never> {
         if (!options?.skipErrorHandling) {
-            this.myCoreLoggerService.logError({ msg: err });
+            void this.myCoreLoggerService.logError({ msg: err });
         }
 
         return throwError(() => err);
