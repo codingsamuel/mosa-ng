@@ -30,7 +30,7 @@ export class CoreLoggerService {
      * Gets the error message from any type of object
      */
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    public getErrorMsg(err: any): string {
+    public async getErrorMsg(err: any): Promise<string> {
         let msg: string = 'Unknown Error';
 
         if (!err) {
@@ -51,6 +51,13 @@ export class CoreLoggerService {
             msg = err.message;
         } else if (err.Message) {
             msg = err.Message;
+        }
+
+        if (err.error instanceof Blob) {
+            // Convert the Blob back to a string
+            const text: string = await (err.error as Blob).text();
+            const errorBody = JSON.parse(text);
+            return errorBody.message;
         }
 
         if (typeof err.error === 'string') {
@@ -93,9 +100,9 @@ export class CoreLoggerService {
      * @param showUser
      * @param config
      */
-    public logError(config: ILoggerConfig): void {
+    public async logError(config: ILoggerConfig): Promise<void> {
         config = this.serializeConfig(config);
-        config.msg = this.getErrorMsg(config.msg);
+        config.msg = await this.getErrorMsg(config.msg);
 
         if (!config.title) {
             config.title = this.getErrorTitle(config.msg);
