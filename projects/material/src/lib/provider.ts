@@ -35,7 +35,7 @@ export * from './services/logger.service';
 export * from './services/facades/logger.facade';
 
 function initI18n(i18n: AssetsI18nLoaderService): Promise<void> {
-    return i18n.init(undefined, 'mosa');
+    return i18n.init(undefined, 'mosa-material');
 }
 
 export const provideMosaMaterial: () => EnvironmentProviders = () => makeEnvironmentProviders([
