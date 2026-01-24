@@ -1,0 +1,11 @@
+{
+    "mosa.commons.buttons.deny": "Ablehnen",
+    "mosa.commons.buttons.dismiss": "Schließen",
+    "mosa.commons.buttons.confirm": "Bestätigen",
+    "mosa.commons.buttons.cancel": "Abbrechen",
+    "mosa.commons.buttons.reloadNow": "Jetzt neu laden",
+    "mosa.commons.buttons.ignoreFor": "Für {{ duration }} ignorieren",
+
+    "mosa.components.cellEditorBase.discardChanges.label": "Änderungen verwerfen?",
+    "mosa.components.cellEditorBase.discardChanges.message": "Sie haben noch nicht gespeicherte Änderungen. Wollen Sie diese Seite wirklich schließen?"
+}
