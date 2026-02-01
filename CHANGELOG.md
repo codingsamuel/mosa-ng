@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [21.0.4](https://github.com/codingsamuel/mosa-ng/compare/v21.0.3...v21.0.4) (2026-02-01)
+
+
+### Bug Fixes
+
+* **confirm-dialog:** show icon and fix translations ([be079a3](https://github.com/codingsamuel/mosa-ng/commit/be079a393e5d4eedd51713a6637c937b09ca4d30))
+
 ## [21.0.3](https://github.com/codingsamuel/mosa-ng/compare/v21.0.2...v21.0.3) (2026-01-24)
 
 
