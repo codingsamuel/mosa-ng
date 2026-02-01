@@ -6,6 +6,9 @@
     "mosa.commons.buttons.reloadNow": "Reload now",
     "mosa.commons.buttons.ignoreFor": "Ignore for {{ duration }}",
 
+    "mosa.components.confirmDialog.title": "Confirm Action",
+    "mosa.components.confirmDialog.message": "Do you really want to proceed with this action?",
+
     "mosa.components.cellEditorBase.discardChanges.label": "Discard changes?",
     "mosa.components.cellEditorBase.discardChanges.message": "You have still unsaved changes. Are you sure you want to close the page?"
 }

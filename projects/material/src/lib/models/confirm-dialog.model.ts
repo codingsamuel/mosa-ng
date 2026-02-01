@@ -11,10 +11,12 @@ export class ConfirmDialogAction {
     public visible: boolean | undefined;
     public label: string;
 
-    constructor(label: string, visible?: boolean) {
+    constructor(label: string, icon?: string, visible?: boolean) {
         this.label = label;
+        this.icon = icon;
         this.visible = visible;
     }
+
 }
 
 export class ConfirmDialogData {
@@ -24,12 +26,17 @@ export class ConfirmDialogData {
     public cancel: ConfirmDialogAction | undefined;
     public confirm: ConfirmDialogAction | undefined;
     public deny: ConfirmDialogAction | undefined;
+    public uppercase: boolean = true;
 
-    constructor(title?: string, message?: string, cancel?: ConfirmDialogAction, confirm?: ConfirmDialogAction, deny?: ConfirmDialogAction) {
+    constructor(title?: string, message?: string, cancel?: ConfirmDialogAction, confirm?: ConfirmDialogAction, deny?: ConfirmDialogAction, uppercase?: boolean) {
         this.title = title;
         this.message = message;
         this.cancel = cancel;
         this.confirm = confirm;
         this.deny = deny;
+
+        if (uppercase != null) {
+            this.uppercase = uppercase;
+        }
     }
 }
