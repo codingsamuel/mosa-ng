@@ -50,7 +50,7 @@
         "commit-and-tag-version": "^12.6.1",
         "eslint": "^9.39.2",
         "eslint-plugin-import": "^2.32.0",
-        "eslint-plugin-jsdoc": "^61.5.0",
+        "eslint-plugin-jsdoc": "^62.0.0",
         "eslint-plugin-prefer-arrow": "^1.2.3",
         "husky": "^9.1.7",
         "jasmine-core": "~5.13.0",
