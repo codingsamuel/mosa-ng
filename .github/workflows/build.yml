@@ -35,7 +35,7 @@ jobs:
         run: npm run build core
 
       - name: Create Artifact for @mosa-ng/core
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: mosa-ng-core
           path: dist/@mosa-ng/core
@@ -44,7 +44,7 @@ jobs:
         run: npm run build material
 
       - name: Create Artifact for @mosa-ng/material
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: mosa-ng-material
           path: dist/@mosa-ng/material
@@ -69,7 +69,7 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Get Artifact for core
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v7
         with:
           name: mosa-ng-core
           path: mosa-ng-core
@@ -79,7 +79,7 @@ jobs:
         working-directory: ${{ github.workspace }}/mosa-ng-core
 
       - name: Get Artifact for material
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v7
         with:
           name: mosa-ng-material
           path: mosa-ng-material
