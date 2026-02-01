@@ -6,6 +6,9 @@
     "mosa.commons.buttons.reloadNow": "Jetzt neu laden",
     "mosa.commons.buttons.ignoreFor": "Für {{ duration }} ignorieren",
 
+    "mosa.components.confirmDialog.title": "Aktion bestätigen",
+    "mosa.components.confirmDialog.message": "Wollen Sie mit dieser Aktion wirklich fortfahren?",
+
     "mosa.components.cellEditorBase.discardChanges.label": "Änderungen verwerfen?",
     "mosa.components.cellEditorBase.discardChanges.message": "Sie haben noch nicht gespeicherte Änderungen. Wollen Sie diese Seite wirklich schließen?"
 }
