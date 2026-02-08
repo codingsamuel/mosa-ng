@@ -13,13 +13,6 @@
         "release:patch": "commit-and-tag-version --release-as patch",
         "release:major": "commit-and-tag-version --release-as major"
     },
-    "publishConfig": {
-        "access": "public"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/codingsamuel/mosa-ng.git"
-    },
     "private": false,
     "dependencies": {
         "@angular/animations": "^21.0.6",
