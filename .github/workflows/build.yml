@@ -53,6 +53,10 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     if: success() && github.event_name == 'pull_request' && startsWith(github.head_ref, 'build/release')
+    # REQUIRED for OIDC
+    permissions:
+      id-token: write
+      contents: read
 
     steps:
       - name: Checkout repository
@@ -62,28 +66,21 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: 24.x
+          registry-url: 'https://registry.npmjs.org'
 
-      - name: Authenticate with npm Registry
-        run: echo "//registry.npmjs.org/:_authToken=${{secrets.NPM_TOKEN}}" > ~/.npmrc
+      - name: Get Artifacts
+        uses: actions/download-artifact@v7
+        with:
+          path: artifacts
+
+      - name: Publish @mosa-ng/core
+        run: npm publish --access public --provenance
+        working-directory: artifacts/mosa-ng-core
         env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }} # setup-node uses this for OIDC automatically
 
-      - name: Get Artifact for core
-        uses: actions/download-artifact@v7
-        with:
-          name: mosa-ng-core
-          path: mosa-ng-core
-
-      - name: Publish @mosa-ng/core package to npm Registry
-        run: npm publish --access public
-        working-directory: ${{ github.workspace }}/mosa-ng-core
-
-      - name: Get Artifact for material
-        uses: actions/download-artifact@v7
-        with:
-          name: mosa-ng-material
-          path: mosa-ng-material
-
-      - name: Publish @mosa-ng/material package to npm Registry
-        run: npm publish --access public
-        working-directory: ${{ github.workspace }}/mosa-ng-material
+      - name: Publish @mosa-ng/material
+        run: npm publish --access public --provenance
+        working-directory: artifacts/mosa-ng-material
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
