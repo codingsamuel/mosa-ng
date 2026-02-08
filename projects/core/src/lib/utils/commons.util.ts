@@ -68,10 +68,16 @@ export function getTransformMatrix(element: HTMLElement): ITransformMatrix {
     };
 }
 
-export function some<T>(item: T, searchValue: T[keyof T] | T[keyof T][], searchKey?: keyof T): boolean {
+export function some<T>(item: T, searchValue: T[keyof T] | T[keyof T][], searchKey?: keyof T, compareFn: ((item: T, val: T[keyof T]) => boolean) | 'equals' | 'not-equals' = 'equals'): boolean {
     let searchValues: T[keyof T][] = searchValue as T[keyof T][];
     if (!Array.isArray(searchValue)) {
         searchValues = [ searchValue ];
+    }
+
+    if (typeof compareFn === 'function') {
+        return searchValues.some((val: T[keyof T]) => compareFn(item, val));
+    } else if (compareFn === 'not-equals') {
+        return !searchValues.includes(searchKey ? item[ searchKey ] : item as T[keyof T]);
     }
 
     return searchValues.includes(searchKey ? item[ searchKey ] : item as T[keyof T]);
