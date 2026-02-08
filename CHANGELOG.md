@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [21.1.0](https://github.com/codingsamuel/mosa-ng/compare/v21.0.4...v21.1.0) (2026-02-08)
+
+
+### Features
+
+* **pipes:** add compareFn to filter and find pipe ([c0356f5](https://github.com/codingsamuel/mosa-ng/commit/c0356f5cf3e534380370724d723cebb0fc927a8b))
+
+
+### Bug Fixes
+
+* **deps:** update angular monorepo ([7b0fa43](https://github.com/codingsamuel/mosa-ng/commit/7b0fa434734de175b211ed19d0299024d3a4e1f7))
+
 ## [21.0.4](https://github.com/codingsamuel/mosa-ng/compare/v21.0.3...v21.0.4) (2026-02-01)
 
 
