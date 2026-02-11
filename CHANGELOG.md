@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [21.1.1](https://github.com/codingsamuel/mosa-ng/compare/v21.1.0...v21.1.1) (2026-02-11)
+
+
+### Features
+
+* **pipes:** update github publish ([02b2c6d](https://github.com/codingsamuel/mosa-ng/commit/02b2c6dd18c6eddf550868410f375b186daa8eab))
+* **pipes:** update github publish ([a6b3985](https://github.com/codingsamuel/mosa-ng/commit/a6b3985c734c15e7e6b4b1ed9af49b759b0d3185))
+* **pipes:** update github publish ([a5af60a](https://github.com/codingsamuel/mosa-ng/commit/a5af60a490069bc1a4d131212654ce4e44fdd9d1))
+* **pipes:** update github publish ([7175bec](https://github.com/codingsamuel/mosa-ng/commit/7175bec1951ec1766a9039c1ea31fb30a463f0b1))
+
+
+### Bug Fixes
+
+* **pipes:** fix pipe compare fn ([ab99ec8](https://github.com/codingsamuel/mosa-ng/commit/ab99ec893faa984571c479696ccb00a66cbb3754))
+
 ## [21.1.0](https://github.com/codingsamuel/mosa-ng/compare/v21.0.4...v21.1.0) (2026-02-08)
 
 
