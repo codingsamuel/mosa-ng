@@ -68,19 +68,24 @@ export function getTransformMatrix(element: HTMLElement): ITransformMatrix {
     };
 }
 
-export function some<T>(item: T, searchValue: T[keyof T] | T[keyof T][], searchKey?: keyof T, compareFn: ((item: T, val: T[keyof T]) => boolean) | 'equals' | 'not-equals' = 'equals'): boolean {
+export function some<T>(item: T, searchValue: T[keyof T] | T[keyof T][], searchKey?: keyof T, compareFn: ((item: T, val: T[keyof T]) => boolean) | 'equals' | 'not-equals' | 'smaller' | 'bigger' | 'smaller-equals' | 'bigger-equals' = 'equals'): boolean {
     let searchValues: T[keyof T][] = searchValue as T[keyof T][];
     if (!Array.isArray(searchValue)) {
         searchValues = [ searchValue ];
     }
 
-    if (typeof compareFn === 'function') {
-        return searchValues.some((val: T[keyof T]) => compareFn(item, val));
-    } else if (compareFn === 'not-equals') {
-        return !searchValues.includes(searchKey ? item[ searchKey ] : item as T[keyof T]);
+    const itemValue: unknown = searchKey ? item[ searchKey ] : item as T[keyof T];
+    if (compareFn === 'not-equals' || compareFn === 'equals') {
+        return searchValues.some((val: T[keyof T]) => compareFn === 'equals' ? itemValue === val : itemValue !== val);
+    } else if (compareFn === 'smaller' || compareFn === 'bigger') {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        return searchValues.some((val: T[keyof T]) => compareFn === 'smaller' ? (itemValue as any) < val : (itemValue as any) > val);
+    } else if (compareFn === 'smaller-equals' || compareFn === 'bigger-equals') {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        return searchValues.some((val: T[keyof T]) => compareFn === 'smaller-equals' ? (itemValue as any) <= val : (itemValue as any) >= val);
     }
 
-    return searchValues.includes(searchKey ? item[ searchKey ] : item as T[keyof T]);
+    return searchValues.some((val: T[keyof T]) => compareFn(item, val));
 }
 
 /**

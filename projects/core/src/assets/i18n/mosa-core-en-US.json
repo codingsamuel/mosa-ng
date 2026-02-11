@@ -8,7 +8,7 @@
     "mosa.commons.errors.status[500].message": "Internal Server Error",
 
     "mosa.pipes.timeSince.prefix.past": "",
-    "mosa.pipes.timeSince.prefix.future": "",
+    "mosa.pipes.timeSince.prefix.future": "in ",
     "mosa.pipes.timeSince.suffix.past": " ago",
     "mosa.pipes.timeSince.suffix.future": "",
     "mosa.pipes.timeSince.second": "%d second",
